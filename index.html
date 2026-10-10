@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-DAC DBMS Exam Prep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateX(5px);
+            background-color: rgba(51, 65, 85, 0.8);
+        }
+        .option-correct {
+            background-color: rgba(22, 163, 74, 0.2) !important;
+            border-color: #16a34a !important;
+            color: #4ade80;
+        }
+        .option-incorrect {
+            background-color: rgba(220, 38, 38, 0.2) !important;
+            border-color: #dc2626 !important;
+            color: #f87171;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- UI Container will be injected here -->
+    <div id="app" class="flex-grow container mx-auto px-4 py-8 max-w-4xl flex flex-col"></div>
+
+    <script>
+        // --- DATA ---
+        let quizData = [];
+
+        // --- CORE LOGIC ---
+        let appState = {
+            mode: 'menu', 
+            questions: [],
+            currentIndex: 0,
+            score: 0,
+            practiceAnswers: {}, 
+            mockAnswers: {}, 
+            timeLeft: 45 * 60,
+            timerInterval: null
+        };
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        async function init() {
+            // Hiển thị trạng thái loading
+            document.getElementById('app').innerHTML = `
+                <div class="flex-grow flex items-center justify-center fade-in">
+                    <div class="text-center text-slate-400">
+                        <i class="fas fa-circle-notch fa-spin text-4xl mb-4 text-blue-500"></i>
+                        <p>Đang tải dữ liệu câu hỏi...</p>
+                    </div>
+                </div>
+            `;
+
+            try {
+                const response = await fetch('./questions.json');
+                if (!response.ok) throw new Error('Network response was not ok');
+                quizData = await response.json();
+            } catch (error) {
+                console.error("Lỗi khi tải questions.json:", error);
+                document.getElementById('app').innerHTML = `
+                    <div class="flex-grow flex items-center justify-center fade-in">
+                        <div class="glass-panel p-8 rounded-2xl text-center border-red-500/30 w-full max-w-lg">
+                            <i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-4"></i>
+                            <h2 class="text-xl font-bold text-white mb-2">Lỗi tải dữ liệu</h2>
+                            <p class="text-slate-400 text-sm">Không thể nạp tệp <code>questions.json</code>. Vui lòng đảm bảo bạn đang mở trang qua một Web Server (chẳng hạn VSCode Live Server) thay vì mở trực tiếp file HTML (giao thức <code>file://</code>) để tránh lỗi CORS.</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const savedState = localStorage.getItem('cdac_practice_state');
+            if(savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    appState.practiceAnswers = parsed.practiceAnswers || {};
+                } catch(e) {}
+            }
+            renderMenu();
+        }
+
+        function savePracticeState() {
+            localStorage.setItem('cdac_practice_state', JSON.stringify({
+                practiceAnswers: appState.practiceAnswers
+            }));
+        }
+
+        function resetPracticeState() {
+            if(confirm("Bạn có chắc muốn xóa dữ liệu luyện tập cũ và làm lại từ đầu?")) {
+                appState.practiceAnswers = {};
+                savePracticeState();
+                startPractice();
+            }
+        }
+
+        function renderMenu() {
+            appState.mode = 'menu';
+            const appDiv = document.getElementById('app');
+            appDiv.innerHTML = `
+                <div class="flex-grow flex items-center justify-center fade-in">
+                    <div class="glass-panel p-8 rounded-2xl shadow-2xl w-full max-w-2xl text-center relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fas fa-database text-9xl"></i>
+                        </div>
+                        <div class="mb-6 inline-block bg-blue-500/20 p-4 rounded-full text-blue-400 relative z-10">
+                            <i class="fas fa-graduation-cap text-4xl"></i>
+                        </div>
+                        <h1 class="text-3xl font-bold text-white mb-2 relative z-10">C-DAC DBMS Simulator</h1>
+                        <p class="text-slate-400 mb-8 relative z-10">Hệ thống ôn thi chứng chỉ C-DAC môn Hệ Quản Trị CSDL</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 relative z-10">
+                            <div class="flex flex-col gap-2">
+                                <button onclick="startPractice()" class="flex flex-col items-center justify-center p-6 bg-slate-800/80 hover:bg-blue-600/30 border border-slate-700 hover:border-blue-500 rounded-xl transition-all group h-full">
+                                    <i class="fas fa-book-reader text-3xl text-slate-400 group-hover:text-blue-400 mb-3 transition-colors"></i>
+                                    <span class="text-lg font-semibold text-white">Luyện tập (Practice)</span>
+                                    <span class="text-sm text-slate-400 mt-2 text-center">Toàn bộ câu hỏi, giải thích chi tiết, lưu tiến độ</span>
+                                </button>
+                                ${Object.keys(appState.practiceAnswers).length > 0 ? `<button onclick="resetPracticeState()" class="text-xs text-slate-500 hover:text-red-400 py-1 transition-colors"><i class="fas fa-trash-alt mr-1"></i> Xóa tiến độ cũ</button>` : ''}
+                            </div>
+                            
+                            <div class="flex flex-col gap-2">
+                                <button onclick="startMockTest()" class="flex flex-col items-center justify-center p-6 bg-slate-800/80 hover:bg-purple-600/30 border border-slate-700 hover:border-purple-500 rounded-xl transition-all group h-full">
+                                    <i class="fas fa-stopwatch text-3xl text-slate-400 group-hover:text-purple-400 mb-3 transition-colors"></i>
+                                    <span class="text-lg font-semibold text-white">Thi thử (Mock Test)</span>
+                                    <span class="text-sm text-slate-400 mt-2 text-center">40 câu ngẫu nhiên, 45 phút, chấm điểm chuẩn</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function prepareQuestions() {
+            let qs = JSON.parse(JSON.stringify(quizData));
+            qs.forEach(q => {
+                q.options = shuffle(q.options);
+            });
+            return shuffle(qs);
+        }
+
+        function startPractice() {
+            appState.mode = 'practice';
+            appState.questions = prepareQuestions();
+            
+            // Auto skip to first unanswered if there are history
+            let startIdx = 0;
+            for(let i=0; i<appState.questions.length; i++) {
+                if(!appState.practiceAnswers[appState.questions[i].id]) {
+                    startIdx = i;
+                    break;
+                }
+            }
+            appState.currentIndex = startIdx;
+            renderPracticeUI();
+        }
+
+        function startMockTest() {
+            appState.mode = 'mock';
+            // Only take up to 40 questions (or max length if < 40)
+            const count = Math.min(40, quizData.length);
+            appState.questions = prepareQuestions().slice(0, count);
+            appState.currentIndex = 0;
+            appState.mockAnswers = {};
+            appState.timeLeft = 45 * 60;
+            
+            appState.timerInterval = setInterval(() => {
+                appState.timeLeft--;
+                updateTimerDisplay();
+                if(appState.timeLeft <= 0) {
+                    submitMockTest();
+                }
+            }, 1000);
+            
+            renderMockUI();
+        }
+
+        function renderPracticeUI() {
+            const q = appState.questions[appState.currentIndex];
+            const answeredData = appState.practiceAnswers[q.id];
+            const isAnswered = !!answeredData;
+            
+            let answeredCorrectlyCount = Object.values(appState.practiceAnswers).filter(a => a.isCorrect).length;
+            let answeredCount = Object.keys(appState.practiceAnswers).length;
+
+            const appDiv = document.getElementById('app');
+            appDiv.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <button onclick="renderMenu()" class="text-slate-400 hover:text-white transition-colors flex items-center bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <i class="fas fa-arrow-left mr-2"></i> Trở về
+                    </button>
+                    <div class="text-sm text-slate-300 font-medium bg-slate-800 px-4 py-2 rounded-lg border border-slate-700">
+                        Tiến độ: <span class="text-blue-400">${answeredCount}/${appState.questions.length}</span> <span class="mx-2 text-slate-600">|</span> 
+                        Đúng: <span class="text-green-400">${answeredCorrectlyCount}</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-6 md:p-8 flex-grow flex flex-col fade-in relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 left-0 h-1 bg-blue-500 transition-all duration-300" style="width: ${((appState.currentIndex + 1) / appState.questions.length) * 100}%"></div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-300 bg-blue-900/40 px-3 py-1.5 rounded-md border border-blue-500/30">
+                            Câu hỏi ${appState.currentIndex + 1}
+                        </span>
+                        <span class="text-xs text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-md border border-slate-700"><i class="fas fa-folder-open text-slate-500 mr-2"></i>${q.module}</span>
+                    </div>
+
+                    <h2 class="text-xl md:text-2xl font-semibold text-white mb-4 leading-relaxed">
+                        ${q.question}
+                    </h2>
+                    
+                    <div class="mb-6">
+                        <button onclick="toggleHint('practice-hint')" class="text-sm font-medium text-yellow-500 hover:text-yellow-400 focus:outline-none flex items-center bg-yellow-500/10 px-3 py-1.5 rounded-lg border border-yellow-500/20 transition-colors">
+                            <i class="fas fa-language mr-2"></i> Xem gợi ý / Dịch đề
+                        </button>
+                        <div id="practice-hint" class="hidden mt-3 p-4 bg-slate-800/80 border-l-4 border-yellow-500 rounded-r-lg text-sm text-slate-300 shadow-inner leading-relaxed">
+                            <span class="font-semibold text-yellow-500 mb-1 block">Bản dịch:</span>
+                            ${q.hintTranslation}
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 mb-8 flex-grow">
+                        ${q.options.map((opt, idx) => {
+                            let btnClass = "w-full text-left p-4 rounded-xl border border-slate-600 bg-slate-800/40 text-slate-200 option-btn flex items-start group shadow-sm";
+                            let iconClass = "far fa-circle text-slate-500 mt-1 mr-3 group-hover:text-blue-400 transition-colors";
+                            
+                            if (isAnswered) {
+                                btnClass = "w-full text-left p-4 rounded-xl border opacity-70 cursor-default flex items-start";
+                                if (opt.isCorrect) {
+                                    btnClass += " option-correct opacity-100 shadow-md";
+                                    iconClass = "fas fa-check-circle text-green-500 mt-1 mr-3 text-lg";
+                                } else if (answeredData.selectedOptIdx === idx) {
+                                    btnClass += " option-incorrect opacity-100 shadow-md";
+                                    iconClass = "fas fa-times-circle text-red-500 mt-1 mr-3 text-lg";
+                                } else {
+                                    btnClass += " border-slate-700 bg-slate-800/30";
+                                    iconClass = "far fa-circle text-slate-600 mt-1 mr-3";
+                                }
+                            }
+
+                            return `
+                                <button ${isAnswered ? 'disabled' : `onclick="handlePracticeAnswer(${q.id}, ${idx})"`} class="${btnClass}">
+                                    <i class="${iconClass} flex-shrink-0"></i>
+                                    <span class="leading-relaxed">${opt.text}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    ${isAnswered ? `
+                        <div class="mb-6 p-5 rounded-xl bg-slate-800/80 border border-slate-600 fade-in shadow-inner relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 ${q.options[answeredData.selectedOptIdx].isCorrect ? 'bg-green-500' : 'bg-red-500'}"></div>
+                            <h3 class="text-sm font-bold uppercase tracking-wide text-slate-300 mb-3 flex items-center">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2 text-lg"></i> Giải thích chi tiết các lựa chọn
+                            </h3>
+                            
+                            <div class="space-y-4 mt-4">
+                                ${q.options.map(opt => `
+                                    <div class="flex flex-col border-l-2 ${opt.isCorrect ? 'border-green-500 bg-green-500/5' : 'border-red-500 bg-red-500/5'} p-3 rounded-r-lg">
+                                        <div class="flex items-start mb-2">
+                                            <span class="text-xs font-bold px-2 py-0.5 rounded ${opt.isCorrect ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} mr-2 mt-0.5 whitespace-nowrap">
+                                                ${opt.isCorrect ? '[ĐÚNG]' : '[SAI]'}
+                                            </span>
+                                            <span class="text-sm font-medium text-slate-300">${opt.text}</span>
+                                        </div>
+                                        <div class="text-sm text-slate-400 italic pl-1 border-t border-slate-700/50 pt-2 mt-1">
+                                            ${opt.rationale}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="flex justify-between items-center pt-5 border-t border-slate-700 mt-auto">
+                        <button onclick="navPractice(-1)" class="${appState.currentIndex === 0 ? 'invisible' : ''} px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 transition-colors flex items-center">
+                            <i class="fas fa-chevron-left mr-2 text-xs"></i> Câu trước
+                        </button>
+                        <button onclick="navPractice(1)" class="${appState.currentIndex === appState.questions.length - 1 ? 'invisible' : ''} px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors shadow-lg shadow-blue-500/30 flex items-center">
+                            Câu tiếp theo <i class="fas fa-chevron-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handlePracticeAnswer(questionId, optionIndex) {
+            const q = appState.questions.find(x => x.id === questionId);
+            const isCorrect = q.options[optionIndex].isCorrect;
+            
+            appState.practiceAnswers[questionId] = {
+                selectedOptIdx: optionIndex,
+                isCorrect: isCorrect,
+                scoreDelta: isCorrect ? 1 : -0.33
+            };
+            
+            savePracticeState();
+            renderPracticeUI();
+        }
+
+        function navPractice(dir) {
+            appState.currentIndex += dir;
+            renderPracticeUI();
+        }
+
+        function toggleHint(elementId) {
+            const el = document.getElementById(elementId);
+            if(el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                el.classList.add('fade-in');
+            } else {
+                el.classList.add('hidden');
+                el.classList.remove('fade-in');
+            }
+        }
+
+        // --- MOCK TEST MODE ---
+        function renderMockUI() {
+            const q = appState.questions[appState.currentIndex];
+            const selectedIdx = appState.mockAnswers[q.id];
+
+            const appDiv = document.getElementById('app');
+            appDiv.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <button onclick="confirmExitMock()" class="text-slate-400 hover:text-red-400 transition-colors flex items-center bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Thoát
+                    </button>
+                    <div class="flex items-center space-x-3">
+                        <div class="text-white font-mono bg-slate-800 px-4 py-2 rounded-lg border border-slate-600 flex items-center shadow-inner">
+                            <i class="fas fa-clock text-yellow-500 mr-2"></i>
+                            <span id="timerDisplay" class="text-lg tracking-wider">--:--</span>
+                        </div>
+                        <button onclick="submitMockTest()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all shadow-lg shadow-purple-500/30 border border-purple-500/50">
+                            Nộp bài
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-6 h-full items-start">
+                    
+                    <!-- Main content -->
+                    <div class="glass-panel rounded-2xl p-6 md:p-8 flex-grow flex flex-col fade-in w-full lg:order-1 order-2 shadow-2xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-bold uppercase tracking-wider text-purple-300 bg-purple-900/40 px-3 py-1.5 rounded-md border border-purple-500/30">
+                                Câu hỏi ${appState.currentIndex + 1}
+                            </span>
+                        </div>
+
+                        <h2 class="text-xl md:text-2xl font-semibold text-white mb-8 leading-relaxed">
+                            ${q.question}
+                        </h2>
+
+                        <div class="space-y-3 mb-8 flex-grow">
+                            ${q.options.map((opt, idx) => {
+                                const isSelected = selectedIdx === idx;
+                                const btnClass = isSelected 
+                                    ? "w-full text-left p-4 rounded-xl border border-purple-500 bg-purple-900/40 text-white transform transition-all shadow-md flex items-start" 
+                                    : "w-full text-left p-4 rounded-xl border border-slate-600 bg-slate-800/40 text-slate-300 hover:bg-slate-700 transition-all flex items-start group";
+                                const iconClass = isSelected ? "fas fa-check-circle text-purple-400 mt-1 mr-3 text-lg" : "far fa-circle text-slate-500 mt-1 mr-3 group-hover:text-purple-400 transition-colors";
+                                
+                                return `
+                                    <button onclick="handleMockAnswer(${q.id}, ${idx})" class="${btnClass}">
+                                        <i class="${iconClass} flex-shrink-0"></i> 
+                                        <span class="leading-relaxed">${opt.text}</span>
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+
+                        <div class="flex justify-between items-center pt-5 border-t border-slate-700 mt-auto">
+                            <button onclick="navMock(-1)" class="${appState.currentIndex === 0 ? 'invisible' : ''} px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 transition-colors flex items-center">
+                                <i class="fas fa-chevron-left mr-2 text-xs"></i> Câu trước
+                            </button>
+                            <button onclick="navMock(1)" class="${appState.currentIndex === appState.questions.length - 1 ? 'invisible' : ''} px-6 py-2.5 rounded-lg bg-slate-700 hover:bg-slate-600 border border-slate-600 text-white font-medium transition-colors flex items-center shadow-md">
+                                Câu sau <i class="fas fa-chevron-right ml-2 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar: Question Navigator -->
+                    <div class="w-full lg:w-72 glass-panel rounded-2xl p-5 flex flex-col lg:h-[600px] lg:order-2 order-1 shadow-2xl">
+                        <h3 class="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider flex items-center border-b border-slate-700 pb-3">
+                            <i class="fas fa-th mr-2"></i> Danh sách câu hỏi
+                        </h3>
+                        <div class="grid grid-cols-6 lg:grid-cols-4 gap-2 overflow-y-auto pr-2 custom-scrollbar">
+                            ${appState.questions.map((_, idx) => {
+                                let statusClass = "bg-slate-800 text-slate-400 hover:bg-slate-700 border border-slate-700";
+                                if (appState.mockAnswers[appState.questions[idx].id] !== undefined) {
+                                    statusClass = "bg-purple-600/50 text-white border-purple-500 shadow-inner";
+                                }
+                                if (appState.currentIndex === idx) {
+                                    statusClass += " ring-2 ring-white ring-offset-2 ring-offset-[#0f172a]";
+                                }
+                                return `<button onclick="jumpToMock(${idx})" class="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-all ${statusClass}">${idx + 1}</button>`;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                </div>
+            `;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const el = document.getElementById('timerDisplay');
+            if(!el) return;
+            const m = Math.floor(appState.timeLeft / 60).toString().padStart(2, '0');
+            const s = (appState.timeLeft % 60).toString().padStart(2, '0');
+            el.innerText = `${m}:${s}`;
+            if (appState.timeLeft < 300) {
+                el.classList.add('text-red-400');
+                el.classList.add('animate-pulse');
+            }
+        }
+
+        function handleMockAnswer(qId, optIdx) {
+            appState.mockAnswers[qId] = optIdx;
+            // Tự động chuyển câu sau khi chọn (nếu muốn, hiện tại cứ để user bấm nút)
+            renderMockUI();
+        }
+
+        function navMock(dir) {
+            appState.currentIndex += dir;
+            renderMockUI();
+        }
+
+        function jumpToMock(idx) {
+            appState.currentIndex = idx;
+            renderMockUI();
+        }
+
+        function confirmExitMock() {
+            if(confirm("Bạn có chắc chắn muốn thoát? Bài làm sẽ không được lưu lại.")) {
+                clearInterval(appState.timerInterval);
+                renderMenu();
+            }
+        }
+
+        function submitMockTest() {
+            if(appState.timeLeft > 0) {
+                const unanswered = appState.questions.length - Object.keys(appState.mockAnswers).length;
+                let msg = "Bạn có chắc chắn muốn nộp bài?";
+                if(unanswered > 0) msg = `Bạn còn ${unanswered} câu chưa làm. ` + msg;
+                if(!confirm(msg)) return;
+            }
+            clearInterval(appState.timerInterval);
+            
+            // Calculate score
+            let correct = 0;
+            let wrong = 0;
+            let totalScore = 0;
+
+            appState.questions.forEach(q => {
+                const ansIdx = appState.mockAnswers[q.id];
+                if (ansIdx !== undefined) {
+                    if (q.options[ansIdx].isCorrect) {
+                        correct++;
+                        totalScore += 1;
+                    } else {
+                        wrong++;
+                        totalScore -= 0.33; // CDAC Negative marking
+                    }
+                }
+            });
+            
+            appState.scoreResults = {
+                correct, wrong, totalScore: totalScore.toFixed(2),
+                unanswered: appState.questions.length - correct - wrong,
+                passScore: (appState.questions.length * 0.5) // 50% pass mark assumption
+            };
+            
+            appState.mode = 'result';
+            renderResults();
+        }
+
+        function renderResults() {
+            const res = appState.scoreResults;
+            const isPassed = res.totalScore >= res.passScore;
+            
+            const passStatusHtml = isPassed ? 
+                '<div class="inline-flex items-center px-4 py-2 rounded-full bg-green-500/20 text-green-400 border border-green-500/30 text-lg font-bold shadow-[0_0_15px_rgba(74,222,128,0.3)]"><i class="fas fa-award mr-2 text-xl"></i> ĐẠT (PASS)</div>' : 
+                '<div class="inline-flex items-center px-4 py-2 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 text-lg font-bold"><i class="fas fa-times-circle mr-2 text-xl"></i> CHƯA ĐẠT (FAIL)</div>';
+
+            const appDiv = document.getElementById('app');
+            appDiv.innerHTML = `
+                <div class="flex-grow flex items-center justify-center fade-in py-8">
+                    <div class="glass-panel p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-2xl text-center relative overflow-hidden">
+                        
+                        <!-- Decorative background element -->
+                        <div class="absolute top-0 left-0 w-full h-40 ${isPassed ? 'bg-gradient-to-b from-green-600/20' : 'bg-gradient-to-b from-red-600/20'} to-transparent z-0"></div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-3xl font-bold text-white mb-6 uppercase tracking-wider">Kết quả bài thi</h2>
+                            
+                            <div class="mb-10">${passStatusHtml}</div>
+
+                            <div class="flex flex-col items-center justify-center mb-10">
+                                <div class="text-sm text-slate-400 uppercase tracking-widest mb-2 font-semibold">Tổng điểm</div>
+                                <div class="text-7xl font-bold text-white mb-2 drop-shadow-lg">
+                                    ${res.totalScore}
+                                </div>
+                                <div class="text-lg text-slate-400 font-medium bg-slate-800/80 px-4 py-1 rounded-full border border-slate-700">/ ${appState.questions.length} điểm tối đa</div>
+                                <p class="text-xs text-slate-500 mt-3">(Đúng: +1.0, Sai: -0.33, Bỏ qua: 0)</p>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-3 md:gap-6 mb-10">
+                                <div class="bg-slate-800/80 p-5 rounded-2xl border-b-4 border-green-500 shadow-lg">
+                                    <div class="text-4xl font-bold text-green-400 mb-1">${res.correct}</div>
+                                    <div class="text-xs uppercase tracking-wider text-slate-400 font-medium">Câu đúng</div>
+                                </div>
+                                <div class="bg-slate-800/80 p-5 rounded-2xl border-b-4 border-red-500 shadow-lg">
+                                    <div class="text-4xl font-bold text-red-400 mb-1">${res.wrong}</div>
+                                    <div class="text-xs uppercase tracking-wider text-slate-400 font-medium">Câu sai</div>
+                                </div>
+                                <div class="bg-slate-800/80 p-5 rounded-2xl border-b-4 border-slate-500 shadow-lg">
+                                    <div class="text-4xl font-bold text-slate-400 mb-1">${res.unanswered}</div>
+                                    <div class="text-xs uppercase tracking-wider text-slate-400 font-medium">Bỏ qua</div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                <button onclick="reviewMock()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-700 hover:bg-slate-600 border border-slate-600 text-white font-medium transition-colors shadow-md flex items-center justify-center">
+                                    <i class="fas fa-search mr-2"></i> Xem lại đáp án
+                                </button>
+                                <button onclick="renderMenu()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center">
+                                    <i class="fas fa-home mr-2"></i> Về trang chủ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function reviewMock() {
+            // Chuyển UI sang dạng Practice để xem lại
+            appState.mode = 'practice';
+            appState.currentIndex = 0;
+            appState.practiceAnswers = {};
+            
+            // Map câu trả lời từ mock sang practice để UI tự render màu sắc
+            appState.questions.forEach(q => {
+                const ans = appState.mockAnswers[q.id];
+                if(ans !== undefined) {
+                    appState.practiceAnswers[q.id] = {
+                        selectedOptIdx: ans,
+                        isCorrect: q.options[ans].isCorrect
+                    };
+                }
+            });
+            renderPracticeUI();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
