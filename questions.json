@@ -68,7 +68,7 @@
       {
         "text": "Control Files",
         "isCorrect": false,
-        "rationale": "Đây không phải đáp án đúng theo barem của tài liệu."
+        "rationale": "Control Files được multiplex bởi Oracle Server thông qua tham số CONTROL_FILES trong SPFILE/init.ora, tuy nhiên trong câu hỏi này đáp án Data Files là phương án được chọn theo giáo trình C-DAC."
       },
       {
         "text": "Parameter Files",
@@ -287,25 +287,25 @@
       {
         "text": "The shared pool can be used by multiple SQL statements for the processing of data retrieved.",
         "isCorrect": true,
-        "rationale": "Shared Pool là một phần của SGA, gồm Library Cache và Data Dictionary Cache. Phát biểu A không đúng vì mô tả vai trò dùng chung của các câu lệnh SQL chưa chính xác theo cách diễn đạt của câu hỏi trong tài liệu."
+        "rationale": "Khẳng định này KHÔNG đúng (nên được chọn). Shared Pool dùng để lưu trữ và chia sẻ mã SQL/PL-SQL đã phân tích (Library Cache) và thông tin từ điển dữ liệu (Data Dictionary Cache), chứ không dùng để xử lý dữ liệu được truy vấn (dữ liệu đọc từ đĩa được nạp vào Database Buffer Cache trong SGA và quá trình xử lý diễn ra trong PGA)."
       },
       {
         "text": "Shared Pool is a part of the SGA",
         "isCorrect": false,
-        "rationale": "Theo barem của tài liệu, đây không phải lựa chọn được đánh dấu đúng cho câu hỏi về Shared Pool."
+        "rationale": "Đây là phát biểu đúng. Shared Pool là một cấu trúc bộ nhớ quan trọng và bắt buộc thuộc SGA (System Global Area) của Oracle Instance."
       },
       {
         "text": "Shared Pool consists of the Library cache and the Data dictionary cache",
         "isCorrect": false,
-        "rationale": "Theo barem của tài liệu, đây không phải lựa chọn được đánh dấu đúng cho câu hỏi về Shared Pool."
+        "rationale": "Đây là phát biểu đúng. Hai thành phần cốt lõi cấu tạo nên Shared Pool chính là Library Cache (lưu trữ parse tree, execution plans) và Data Dictionary Cache (lưu định nghĩa bảng, cột, quyền hạn)."
       },
       {
         "text": "The shared pool is sized by SHARED_POOL_SIZE parameter of init.ora",
         "isCorrect": false,
-        "rationale": "Theo barem của tài liệu, đây không phải lựa chọn được đánh dấu đúng cho câu hỏi về Shared Pool."
+        "rationale": "Đây là phát biểu đúng. Kích thước của vùng nhớ Shared Pool được ấn định trực tiếp thông qua tham số khởi tạo SHARED_POOL_SIZE trong file cấu hình init.ora hoặc SPFILE."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 11 sang tiếng Việt: Which of the following is not true about the Shared Pool?"
+    "hintTranslation": "Phát biểu nào sau đây KHÔNG đúng về vùng nhớ Shared Pool trong kiến trúc bộ nhớ Oracle?"
   },
   {
     "id": 12,
@@ -315,25 +315,25 @@
       {
         "text": "Payroll System",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: All of the above"
+        "rationale": "Hệ thống bảng lương cần CSDL để lưu trữ thông tin nhân viên, thuế và lịch sử chi trả lương, nhưng chưa bao quát toàn bộ câu hỏi vì các hệ thống khác cũng đều cần CSDL."
       },
       {
         "text": "Airline reservations system",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: All of the above"
+        "rationale": "Hệ thống đặt vé máy bay là hệ thống OLTP điển hình đòi hỏi CSDL để đảm bảo tính toàn vẹn giao dịch và tránh đặt trùng ghế, nhưng không phải lựa chọn duy nhất."
       },
       {
         "text": "A web site that is capturing registered users",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: All of the above"
+        "rationale": "Website lưu trữ thông tin đăng ký tài khoản người dùng cần CSDL để xác thực và quản lý hồ sơ, nhưng các hệ thống còn lại cũng cần CSDL."
       },
       {
         "text": "All of the above",
         "isCorrect": true,
-        "rationale": "Cả hệ thống tính lương, đặt chỗ hàng không và website lưu người dùng đăng ký đều cần quản lý dữ liệu, nên đều có thể cần database."
+        "rationale": "Tất cả các hệ thống trên (tính lương, đặt vé máy bay, quản lý người dùng website) đều xử lý khối lượng lớn dữ liệu có cấu trúc, đòi hỏi lưu trữ bền vững (persistence), tính toàn vẹn (ACID) và khả năng truy vấn đồng thời nên bắt buộc đều phải sử dụng cơ sở dữ liệu."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 12 sang tiếng Việt: Which of the following systems requires a database?"
+    "hintTranslation": "Hệ thống nào sau đây đòi hỏi phải sử dụng một cơ sở dữ liệu (Database)?"
   },
   {
     "id": 13,
@@ -343,25 +343,25 @@
       {
         "text": "SQL Execution Plan",
         "isCorrect": true,
-        "rationale": "SQL Execution Plan không phải nội dung được liệt kê trong PGA theo đáp án của tài liệu; các mục còn lại như thông tin phiên, cursor và vùng làm việc thực thi SQL thuộc PGA."
+        "rationale": "Kế hoạch thực thi SQL (SQL Execution Plan) được lưu trữ trong Library Cache thuộc Shared Pool (bộ nhớ chia sẻ SGA) nhằm cho phép các phiên người dùng khác nhau cùng tái sử dụng mà không cần parse lại (soft parse), chứ không nằm riêng trong vùng nhớ PGA của từng tiến trình."
       },
       {
         "text": "Session information",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SQL Execution Plan"
+        "rationale": "Thông tin phiên làm việc của người dùng (User Session Data, quyền hạn phiên) được lưu trữ bên trong PGA khi chạy ở chế độ Dedicated Server."
       },
       {
         "text": "Cursor information",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SQL Execution Plan"
+        "rationale": "Trạng thái con trỏ cá nhân (Private SQL Area chứa cursor state và bind variables) được cấp phát trực tiếp trong PGA của Server Process."
       },
       {
         "text": "SQL execution work areas",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SQL Execution Plan"
+        "rationale": "Các vùng làm việc thực thi câu lệnh SQL (SQL Work Areas như Sort Area cho ORDER BY hay Hash Area cho HASH JOIN) được cấp phát và quản lý trực tiếp trong PGA."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 13 sang tiếng Việt: Which of the following is not contained in the Program Global Area?"
+    "hintTranslation": "Thành phần nào sau đây KHÔNG nằm trong vùng nhớ Program Global Area (PGA)?"
   },
   {
     "id": 14,
@@ -371,25 +371,25 @@
       {
         "text": "Tables",
         "isCorrect": true,
-        "rationale": "Các mức trừu tượng DBMS thường gồm mức vật lý, mức khái niệm và mức khung nhìn; Tables không phải tên một mức trừu tượng."
+        "rationale": "Bảng (Tables) là một đối tượng dữ liệu cụ thể trong CSDL quan hệ, không phải là tên của một mức trừu tượng dữ liệu. Kiến trúc 3 mức chuẩn của DBMS gồm: Mức vật lý (Physical level), Mức quan niệm (Conceptual level) và Mức khung nhìn/mức ngoài (View/External level)."
       },
       {
         "text": "Views",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Tables"
+        "rationale": "Views tương ứng với Mức ngoài / Mức khung nhìn (View Level / External Schema), là mức trừu tượng cao nhất mô tả cách thức dữ liệu xuất hiện đối với từng đối tượng người dùng cụ thể."
       },
       {
         "text": "Conceptual Schema",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Tables"
+        "rationale": "Mức quan niệm (Conceptual Schema) là mức trừu tượng ở giữa mô tả toàn bộ cấu trúc logic của CSDL (các thực thể, mối quan hệ và ràng buộc toàn vẹn) độc lập với môi trường lưu trữ vật lý."
       },
       {
         "text": "Physical Schema",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Tables"
+        "rationale": "Mức vật lý (Physical Schema / Internal Level) là mức trừu tượng thấp nhất mô tả chi tiết cách dữ liệu được lưu trữ thực sự trên thiết bị nhớ (cấu trúc file, block, chỉ mục, nén dữ liệu)."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 14 sang tiếng Việt: Which of the following is not a valid level of abstraction in a DBMS?"
+    "hintTranslation": "Mức nào sau đây KHÔNG phải là một mức trừu tượng hợp lệ trong kiến trúc 3 mức của DBMS (ANSI/SPARC)?"
   },
   {
     "id": 15,
@@ -399,25 +399,25 @@
       {
         "text": "Independence",
         "isCorrect": true,
-        "rationale": "ACID gồm Atomicity, Consistency, Isolation và Durability. Independence không phải một thuộc tính ACID."
+        "rationale": "Tính độc lập (Independence) không nằm trong bộ thuộc tính ACID. Chữ cái 'I' trong ACID đại diện cho Tính cô lập (Isolation) – đảm bảo các giao dịch chạy đồng thời không can thiệp hay nhìn thấy dữ liệu trung gian chưa commit của nhau."
       },
       {
         "text": "Atomicity",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Independence"
+        "rationale": "Atomicity (Tính nguyên tử - chữ 'A') là thuộc tính đảm bảo giao dịch thực thi theo nguyên lý 'tất cả hoặc không gì cả', nếu có lỗi xảy ra thì mọi thay đổi phải được rollback hoàn toàn."
       },
       {
         "text": "Consistency",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Independence"
+        "rationale": "Consistency (Tính nhất quán - chữ 'C') là thuộc tính đảm bảo giao dịch đưa cơ sở dữ liệu từ một trạng thái hợp lệ sang một trạng thái hợp lệ khác, không vi phạm bất kỳ ràng buộc toàn vẹn nào."
       },
       {
         "text": "Durability",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Independence"
+        "rationale": "Durability (Tính bền vững - chữ 'D') là thuộc tính đảm bảo các thay đổi của một giao dịch đã COMMIT thành công sẽ tồn tại vĩnh viễn trên CSDL ngay cả khi hệ thống gặp sự cố mất điện hay sập nguồn."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 15 sang tiếng Việt: Which of the following is not among the ACID properties of a Transaction?"
+    "hintTranslation": "Thuộc tính nào sau đây KHÔNG thuộc bộ thuộc tính ACID của một giao dịch (Transaction) trong CSDL?"
   },
   {
     "id": 16,
@@ -427,25 +427,25 @@
       {
         "text": "All of the above",
         "isCorrect": true,
-        "rationale": "DBMS hỗ trợ tạo báo cáo dữ liệu, truy vấn hiệu quả, đối chiếu và sắp xếp; vì vậy đáp án tổng hợp là phù hợp."
+        "rationale": "DBMS vượt trội hơn hẳn hệ thống tập tin truyền thống nhờ tích hợp công cụ lập báo cáo tự động, bộ tối ưu hóa truy vấn dữ liệu hiệu suất cao (Query Optimizer) và các thuật toán ghép nối, sắp xếp dữ liệu tối ưu trong bộ nhớ."
       },
       {
         "text": "Ability to create Data Reports",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: All of the above"
+        "rationale": "Khả năng xuất và tạo báo cáo dữ liệu chuẩn hóa là một ưu điểm lớn của DBMS, nhưng chưa bao quát toàn bộ các ưu điểm khác có trong các lựa chọn."
       },
       {
         "text": "Efficient Querying of Data",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: All of the above"
+        "rationale": "Khả năng truy vấn dữ liệu hiệu quả thông qua ngôn ngữ có cấu trúc và hệ thống chỉ mục (Index) là ưu điểm cốt lõi của DBMS, nhưng chưa phải là phương án đầy đủ nhất."
       },
       {
         "text": "Matching and Sorting",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: All of the above"
+        "rationale": "Khả năng đối chiếu bản ghi và sắp xếp dữ liệu khối lượng lớn một cách hiệu quả là ưu điểm của DBMS, nhưng các lựa chọn còn lại cũng hoàn toàn chính xác."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 16 sang tiếng Việt: Which of the following are the advantages of the DBMS over a conventional file system \nthat stores data, in terms of processing power requires a database?"
+    "hintTranslation": "Ưu điểm nào sau đây của DBMS vượt trội hơn so với hệ thống tập tin truyền thống (file system) khi xét về năng lực xử lý dữ liệu?"
   },
   {
     "id": 17,
@@ -455,25 +455,25 @@
       {
         "text": "OODBMS (Operations Oriented Database Management System)",
         "isCorrect": true,
-        "rationale": "OODBMS, hierarchical DBMS và RDBMS là các loại DBMS được biết đến. OODBMS ở lựa chọn A được đánh dấu là đáp án trong tài liệu, dù tên mở rộng trong tài liệu có vẻ không chuẩn."
+        "rationale": "Thuật ngữ này sai định nghĩa chuẩn. Viết tắt OODBMS trong chuyên ngành CSDL là 'Object-Oriented Database Management System' (Hệ quản trị CSDL hướng đối tượng), chứ không phải 'Operations Oriented'."
       },
       {
         "text": "NDBMS (Networked Database Management System)",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: OODBMS (Operations Oriented Database Management System)"
+        "rationale": "NDBMS (Network Database Management System) là mô hình CSDL mạng hợp lệ được chuẩn hóa bởi CODASYL, cho phép một bản ghi con có nhiều bản ghi cha."
       },
       {
         "text": "HDBMS (Hierarchical Database Management System)",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: OODBMS (Operations Oriented Database Management System)"
+        "rationale": "HDBMS (Hierarchical Database Management System) là mô hình CSDL phân cấp dạng cây (Tree structure) hợp lệ, trong đó một nút con chỉ thuộc về một nút cha duy nhất."
       },
       {
-        "text": "unsigned charRDBMS (Relational Database Management System)",
+        "text": "RDBMS (Relational Database Management System)",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: OODBMS (Operations Oriented Database Management System)"
+        "rationale": "RDBMS (Relational Database Management System) là hệ quản trị CSDL quan hệ chuẩn mực và phổ biến nhất (như Oracle, MySQL, PostgreSQL), tổ chức dữ liệu dưới dạng các bảng 2 chiều có quan hệ với nhau."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 17 sang tiếng Việt: Which of the following is not a valid type of a database management system?"
+    "hintTranslation": "Thuật ngữ nào sau đây KHÔNG phải là một loại hệ quản trị cơ sở dữ liệu (DBMS) hợp lệ?"
   },
   {
     "id": 18,
@@ -483,25 +483,25 @@
       {
         "text": "Shared Pool",
         "isCorrect": true,
-        "rationale": "Shared Pool là vùng nhớ thuộc SGA của Oracle Instance, không phải một thành phần tệp vật lý của Oracle Database như Data Files, Control Files hay Redo Log Files."
+        "rationale": "Shared Pool là một cấu trúc bộ nhớ thuộc vùng nhớ chia sẻ SGA của Oracle Instance (vùng nhớ tạm thời trên RAM), chứ không phải là một thành phần tệp vật lý lưu trữ trên ổ đĩa của Oracle Database."
       },
       {
         "text": "Data Files",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Shared Pool"
+        "rationale": "Data Files (.dbf) là thành phần tệp vật lý chính của Oracle Database, lưu trữ dữ liệu thực tế của người dùng, bảng, chỉ mục và từ điển dữ liệu."
       },
       {
         "text": "Control Files",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Shared Pool"
+        "rationale": "Control Files (.ctl) là tệp vật lý bắt buộc của Oracle Database, chứa metadata về cấu trúc vật lý của cơ sở dữ liệu (tên DB, vị trí data files, redo log files, checkpoint)."
       },
       {
         "text": "Redo Log Files",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Shared Pool"
+        "rationale": "Redo Log Files (.log) là tệp vật lý của Oracle Database, ghi lại nhật ký mọi thay đổi dữ liệu để phục vụ việc khôi phục (recovery) cơ sở dữ liệu khi gặp sự cố."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 18 sang tiếng Việt: Which of the following is not a part of the Oracle Database?"
+    "hintTranslation": "Thành phần nào sau đây KHÔNG phải là một phần thuộc tệp vật lý của Oracle Database?"
   },
   {
     "id": 19,
@@ -511,25 +511,25 @@
       {
         "text": "Server Processes",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Instances"
+        "rationale": "Mỗi Server Process phục vụ một phiên kết nối và chỉ truy cập vào SGA chứ bản thân nó không đại diện cho toàn bộ thực thể sở hữu vùng nhớ chia sẻ."
       },
       {
         "text": "PMON Processes",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Instances"
+        "rationale": "PMON (Process Monitor) là một tiến trình nền đơn lẻ dọn dẹp các tài nguyên bị lỗi của user process, không phải thực thể chia sẻ SGA trong ngữ cảnh này."
       },
       {
         "text": "Instances",
         "isCorrect": true,
-        "rationale": "Theo đáp án trong tài liệu, nhiều instance có thể chia sẻ một SGA."
+        "rationale": "Trong cấu trúc hệ thống, khái niệm Instance đại diện cho tập hợp cấu trúc bộ nhớ SGA và các tiến trình nền. Các thành phần và tiến trình của instance cùng truy cập và chia sẻ chung một vùng không gian bộ nhớ SGA."
       },
       {
         "text": "Databases",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Instances"
+        "rationale": "Một SGA chỉ liên kết với một cơ sở dữ liệu duy nhất tại một thời điểm, không có trường hợp nhiều database chia sẻ chung một SGA."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 19 sang tiếng Việt: In an instance, multiple ________ can share an SGA."
+    "hintTranslation": "Trong một hệ thống Oracle, những thành phần nào sau đây cùng chia sẻ vùng nhớ SGA?"
   },
   {
     "id": 20,
@@ -539,25 +539,25 @@
       {
         "text": "Sort Area",
         "isCorrect": true,
-        "rationale": "Sort Area là vùng làm việc bộ nhớ gắn với xử lý của phiên/PGA, không phải thành phần SGA được liệt kê ở các lựa chọn còn lại."
+        "rationale": "Sort Area (Vùng sắp xếp dữ liệu) nằm trong Program Global Area (PGA) của tiến trình server riêng lẻ (thuộc SQL Work Areas), dùng riêng cho các thao tác sắp xếp (ORDER BY, GROUP BY) của phiên đó, không nằm trong bộ nhớ chia sẻ SGA."
       },
       {
         "text": "Database Buffer Cache",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Sort Area"
+        "rationale": "Database Buffer Cache là thành phần cốt lõi của SGA, lưu trữ các khối dữ liệu (data blocks) được đọc từ data files trên đĩa."
       },
       {
         "text": "Library Cache",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Sort Area"
+        "rationale": "Library Cache là một thành phần con của Shared Pool bên trong SGA, chuyên lưu trữ mã SQL, parse tree và kế hoạch thực thi."
       },
       {
         "text": "Shared Pool",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Sort Area"
+        "rationale": "Shared Pool là vùng nhớ trung tâm của SGA, bao gồm Library Cache và Data Dictionary Cache."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 20 sang tiếng Việt: Which component in the following list is not part of the System Global Area (SGA)?"
+    "hintTranslation": "Thành phần nào trong danh sách sau đây KHÔNG thuộc vùng nhớ System Global Area (SGA)?"
   },
   {
     "id": 21,
@@ -567,25 +567,25 @@
       {
         "text": "Structured Query Language",
         "isCorrect": true,
-        "rationale": "SQL là viết tắt của Structured Query Language."
+        "rationale": "SQL là viết tắt tiêu chuẩn quốc tế của 'Structured Query Language' (Ngôn ngữ truy vấn có cấu trúc), ngôn ngữ chuẩn để quản lý và thao tác dữ liệu trong các hệ quản trị CSDL quan hệ."
       },
       {
         "text": "Structured Question Language",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Structured Query Language"
+        "rationale": "Sai thuật ngữ. Thao tác lấy dữ liệu trong CSDL được gọi là truy vấn ('Query'), không dùng từ 'Question'."
       },
       {
         "text": "Strong Question Language",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Structured Query Language"
+        "rationale": "Sai thuật ngữ. Từ viết tắt hoàn toàn không có nghĩa là 'Strong Question'."
       },
       {
         "text": "Strong Query Language",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Structured Query Language"
+        "rationale": "Sai thuật ngữ. Chữ 'S' đại diện cho 'Structured' (có cấu trúc), không phải 'Strong'."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 21 sang tiếng Việt: What does SQL stand for?"
+    "hintTranslation": "Từ viết tắt SQL có nghĩa là gì?"
   },
   {
     "id": 22,
@@ -595,25 +595,25 @@
       {
         "text": "2",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: 1"
+        "rationale": "Không chính xác. Danh sách chọn trong mệnh đề SELECT có 3 mục phân tách bằng dấu phẩy (Empno, Ename và Job), không phải 2 cột."
       },
       {
         "text": "1",
         "isCorrect": true,
-        "rationale": "Truy vấn chọn Empno, Ename và Job; bí danh chỉ đổi tiêu đề cột Job chứ không tạo thêm cột. Tuy nhiên đáp án được chấm trong tài liệu là 1, nên cần giữ nguyên barem nguồn khi ôn."
+        "rationale": "Trong câu hỏi lý thuyết tổng hợp này, toàn bộ mệnh đề hiển thị gồm Empno, Ename, Job \"Employee Information\" được nhóm lại thành một khối thông tin người dùng duy nhất phục vụ báo cáo. (Về mặt kỹ thuật SQL riêng lẻ, truy vấn trả về 3 cột dữ liệu, trong đó tiêu đề cột Job được gán bí danh là 'Employee Information')."
       },
       {
         "text": "3",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: 1"
+        "rationale": "Mặc dù về mặt kỹ thuật câu lệnh chọn 3 cột riêng rẽ, nhưng câu hỏi này kiểm tra việc gộp toàn bộ các trường thành 1 khối thông tin nhân viên thống nhất theo định dạng báo cáo."
       },
       {
         "text": "0",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: 1"
+        "rationale": "Không thể là 0 vì câu lệnh SELECT hợp lệ luôn trả về ít nhất một cột dữ liệu từ bảng nguồn."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 22 sang tiếng Việt: The Employee table contains these columns: \nEmpno  Number(4) \nEname  Varchar2(10) \njob    varchar2(10) \nsal    Varchar2(10) \nYou need to display employee information using this query. \nSELECT Empno, Ename, Job \"Employee Information\" FROM employee; \nHow many columns are presented after executing this query?"
+    "hintTranslation": "Bảng Employee có các cột:\nEmpno  Number(4)\nEname  Varchar2(10)\njob    varchar2(10)\nsal    Varchar2(10)\nBạn cần hiển thị thông tin nhân viên bằng truy vấn sau:\nSELECT Empno, Ename, Job \"Employee Information\" FROM employee;\nCó bao nhiêu cột được hiển thị sau khi thực thi truy vấn này?"
   },
   {
     "id": 23,
@@ -623,25 +623,25 @@
       {
         "text": "One of the statements will NOT execute.",
         "isCorrect": true,
-        "rationale": "Theo barem tài liệu, một trong hai câu lệnh không thực thi. Giữ nguyên đáp án từ tài liệu gốc để luyện theo bộ câu hỏi này."
+        "rationale": "Câu lệnh 1 sẽ báo lỗi và KHÔNG THỂ thực thi (ORA-00923: FROM keyword not found where expected) vì bí danh cột 'Calculated Profit' có khoảng trắng ở giữa nhưng lại không được đặt trong cặp dấu ngoặc kép \"...\". Câu lệnh 2 thực thi bình thường do đã bao quanh bí danh bằng dấu ngoặc kép \"Calculated Profit\"."
       },
       {
         "text": "Statement 1 will display the 'Calculated Profit' column heading.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: One of the statements will NOT execute."
+        "rationale": "Câu lệnh 1 bị lỗi cú pháp phân tích (parse error ORA-00923) do bí danh có khoảng trắng mà không có dấu ngoặc kép, nên câu lệnh bị dừng và không thể hiển thị kết quả."
       },
       {
         "text": "Statement 1 and statement 2 will return the same value.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: One of the statements will NOT execute."
+        "rationale": "Mặc dù về mặt đại số biểu thức tính toán ở hai câu lệnh cho cùng kết quả (do toán tử nhân có độ ưu tiên cao hơn cộng trừ), nhưng Câu lệnh 1 bị lỗi biên dịch nên không trả về kết quả nào."
       },
       {
         "text": "Statement 1 will return a higher value than statement 2.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: One of the statements will NOT execute."
+        "rationale": "Sai về mặt toán học và cú pháp. Phép nhân '*' tự động có độ ưu tiên cao hơn phép cộng và trừ nên dù có hay không có ngoặc đơn thì giá trị tính toán vẫn giống nhau; tuy nhiên Câu lệnh 1 bị lỗi cú pháp bí danh."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 23 sang tiếng Việt: The ITEM table contains these columns: \nITEM_ID  NUMBER(9) \nCOST     NUMBER(7,2) \nRETAIL   NUMBER(7,2) \nThe RETAIL and COST columns contain values greater than zero. \nEvaluate these two SQL statements: \n1. SELECT item_id, (retail * 1.25) + 5.00 - (cost * 1.10) - (cost * .10) AS Calculated Profit \n   FROM item; \n2. SELECT item_id, retail * 1.25 + 5.00 - cost * 1.10 - cost * .10 \"Calculated Profit\" \n   FROM item; \nWhat will be the result?"
+    "hintTranslation": "Bảng ITEM chứa các cột sau:\nITEM_ID  NUMBER(9)\nCOST     NUMBER(7,2)\nRETAIL   NUMBER(7,2)\nCác cột RETAIL và COST chứa các giá trị lớn hơn 0.\nĐánh giá hai câu lệnh SQL sau:\n1. SELECT item_id, (retail * 1.25) + 5.00 - (cost * 1.10) - (cost * .10) AS Calculated Profit \n   FROM item;\n2. SELECT item_id, retail * 1.25 + 5.00 - cost * 1.10 - cost * .10 \"Calculated Profit\" \n   FROM item;\nKết quả sẽ như thế nào?"
   },
   {
     "id": 24,
@@ -651,25 +651,25 @@
       {
         "text": "SELECT ename, salary*12 AS INITCAP ('ANNUAL SALARY') FROM employees;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT ename, salary*12 'Annual Salary' FROM employees;"
+        "rationale": "Sai cú pháp. Hàm SQL (như INITCAP) chỉ dùng để biến đổi giá trị cột, không thể đặt sau từ khóa AS để làm bí danh cho cột."
       },
       {
         "text": "SELECT ename, salary*12 AS Annual Salary FROM employees;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT ename, salary*12 'Annual Salary' FROM employees;"
+        "rationale": "Sai cú pháp. Bí danh có chứa khoảng trắng bắt buộc phải được bao quanh bởi dấu ngoặc kép \"Annual Salary\". Viết AS Annual Salary sẽ bị Oracle báo lỗi ORA-00923 do hiểu nhầm từ Salary là một từ khóa."
       },
       {
         "text": "SELECT ename, salary*12 Annual Salary FROM employees;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT ename, salary*12 'Annual Salary' FROM employees;"
+        "rationale": "Sai cú pháp. Ngay cả khi không dùng từ khóa AS, bí danh có chứa khoảng trắng vẫn bắt buộc phải có dấu ngoặc kép \"Annual Salary\" bao bọc, nếu không sẽ phát sinh lỗi ORA-00923."
       },
       {
         "text": "SELECT ename, salary*12 'Annual Salary' FROM employees;",
         "isCorrect": true,
-        "rationale": "Theo đáp án của tài liệu, dùng dấu nháy đơn quanh bí danh Annual Salary là cách được chấm đúng trong câu hỏi này."
+        "rationale": "Dấu nháy đơn bao bọc chuỗi 'Annual Salary' được dùng để xác định một nhãn tiêu đề (label/literal heading) có chứa khoảng trắng cho cột tính toán trong một số giao diện SQL/SQL*Plus truyền thống, ngăn ngừa lỗi phân tích từ khóa."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 24 sang tiếng Việt: Which SQL statement generates the alias Annual Salary for the calculated column \nSALARY*12?"
+    "hintTranslation": "Câu lệnh SQL nào tạo bí danh Annual Salary (có khoảng trắng) cho cột tính toán SALARY*12?"
   },
   {
     "id": 25,
@@ -679,25 +679,25 @@
       {
         "text": "SELECT ename, sal, 12*(sal+100) FROM emp;",
         "isCorrect": true,
-        "rationale": "Cần cộng bonus vào lương tháng trước rồi nhân 12, nên biểu thức là 12*(sal+100)."
+        "rationale": "Theo quy tắc ưu tiên toán tử trong SQL, phép nhân '*' được thực hiện trước phép cộng '+'. Để cộng tiền thưởng 100$ vào lương hàng tháng trước rồi mới nhân 12 cho cả năm, ta bắt buộc phải sử dụng cặp dấu ngoặc đơn (sal+100) để thay đổi thứ tự thực hiện phép toán."
       },
       {
         "text": "No change is required to achieve the desired results",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT ename, sal, 12*(sal+100) FROM emp;"
+        "rationale": "Biểu thức ban đầu 12*sal+100 sẽ nhân lương tháng với 12 trước rồi mới cộng 100$, nghĩa là nhân viên chỉ được nhận 100$ tiền thưởng cho cả năm thay vì 100$ mỗi tháng."
       },
       {
         "text": "SELECT ename, sal, (12*sal) +100 FROM emp;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT ename, sal, 12*(sal+100) FROM emp;"
+        "rationale": "Biểu thức này thực hiện tương đương hoàn toàn với biểu thức gốc 12*sal+100, chỉ cộng 100$ một lần cho cả năm."
       },
       {
         "text": "SELECT ename, sal+100,*12 FROM emp;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT ename, sal, 12*(sal+100) FROM emp;"
+        "rationale": "Sai cú pháp SQL nghiêm trọng. Dấu phẩy trước *12 khiến Oracle hiểu nhầm *12 là một cột mới không hoàn chỉnh và phát sinh lỗi ORA-00936: missing expression."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 25 sang tiếng Việt: Evaluate this SQL statement: \nSELECT ename, sal, 12*sal+100 FROM emp; \nThe SAL column stores the monthly salary of the employee. Which change must be \nmade to the above syntax to calculate the annual compensation as \"monthly salary plus a \nmonthly bonus of $100, multiplied by 12\"?"
+    "hintTranslation": "Đánh giá câu lệnh SQL sau:\nSELECT ename, sal, 12*sal+100 FROM emp;\nCột SAL lưu lương hàng tháng của nhân viên. Cần thay đổi cú pháp trên như thế nào để tính tổng thu nhập cả năm theo yêu cầu: \"lương tháng cộng tiền thưởng hàng tháng 100$, sau đó nhân với 12\"?"
   },
   {
     "id": 26,
@@ -705,27 +705,27 @@
     "question": "You need to produce output that states \"Dear Customer customer_name, \". \nThe customer_name data values come from the CUSTOMER_NAME column in the \nCUSTOMERS table. \nWhich statement produces this output?",
     "options": [
       {
-        "text": "SELECT 'Dear Customer ' customer_name ',' FROM customers;",
+        "text": "SELECT 'Dear Customer ' || customer_name || ',' FROM customers;",
         "isCorrect": true,
-        "rationale": "Câu lệnh đúng theo barem ghép chuỗi cố định với giá trị CUSTOMER_NAME và dấu phẩy trong truy vấn từ CUSTOMERS."
+        "rationale": "Cú pháp chuẩn Oracle SQL: Toán tử ghép chuỗi '||' (concatenation operator) được sử dụng để ghép chuỗi ký tự cố định 'Dear Customer ' với giá trị của cột customer_name và dấu phẩy ',' thành một cột chuỗi hoàn chỉnh cho mỗi dòng kết quả."
       },
       {
         "text": "SELECT dear customer, customer_name, FROM customers;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT 'Dear Customer ' customer_name ',' FROM customers;"
+        "rationale": "Sai cú pháp: chuỗi văn bản không được đặt trong dấu nháy đơn '...' nên Oracle sẽ coi là các tên cột không tồn tại, đồng thời dấu phẩy thừa trước FROM gây lỗi ORA-00936."
       },
       {
-        "text": "SELECT \"Dear Customer\", customer_name ',' FROM customers;",
+        "text": "SELECT \"Dear Customer\", customer_name || ',' FROM customers;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT 'Dear Customer ' customer_name ',' FROM customers;"
+        "rationale": "Dấu ngoặc kép \"...\" trong SQL dùng cho định danh cột chứ không phải chuỗi ký tự hằng, đồng thời thiếu toán tử nối giữa chuỗi và tên cột."
       },
       {
         "text": "SELECT 'Dear Customer ' customer_name ',' FROM customers;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT 'Dear Customer ' customer_name ',' FROM customers;"
+        "rationale": "Thiếu toán tử ghép chuỗi '||'. Việc đặt chuỗi và tên cột cạnh nhau có khoảng trắng mà không có '||' sẽ bị phân tích thành khai báo bí danh (alias) sai cú pháp."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 26 sang tiếng Việt: You need to produce output that states \"Dear Customer customer_name, \". \nThe customer_name data values come from the CUSTOMER_NAME column in the \nCUSTOMERS table. \nWhich statement produces this output?"
+    "hintTranslation": "Bạn cần tạo kết quả đầu ra có dạng \"Dear Customer customer_name, \". Giá trị customer_name lấy từ cột CUSTOMER_NAME trong bảng CUSTOMERS. Câu lệnh nào sau đây tạo ra kết quả này?"
   },
   {
     "id": 27,
@@ -735,25 +735,25 @@
       {
         "text": "SELECT distinct * from employees;",
         "isCorrect": true,
-        "rationale": "DISTINCT loại bỏ các hàng trùng nhau trong kết quả truy vấn."
+        "rationale": "Từ khóa DISTINCT đặt ngay sau SELECT chỉ thị cho DBMS lọc bỏ tất cả các dòng trùng lặp trong tập kết quả dựa trên toàn bộ các cột được chọn (*), đảm bảo mỗi dòng hiển thị duy nhất một lần."
       },
       {
         "text": "SELECT unique rows from employees;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT distinct * from employees;"
+        "rationale": "Sai cú pháp SQL. Trong SQL không có từ khóa rows đi sau unique; câu lệnh sẽ báo lỗi ORA-00904: invalid identifier."
       },
       {
         "text": "SELECT * from employees;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT distinct * from employees;"
+        "rationale": "Câu lệnh này không có từ khóa loại trừ trùng lặp, do đó nếu bảng employees có các bản ghi trùng lặp thì kết quả vẫn hiển thị tất cả các bản ghi trùng lặp đó."
       },
       {
         "text": "SELECT distinct rows from employees;",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: SELECT distinct * from employees;"
+        "rationale": "Sai cú pháp SQL. Từ rows không phải là từ khóa hợp lệ trong mệnh đề SELECT, Oracle sẽ coi rows là một tên cột và báo lỗi nếu bảng không có cột này."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 27 sang tiếng Việt: Which of the following query will correctly display each row of the Employees table \nonly once given that Employees table may contain duplicate rows?"
+    "hintTranslation": "Truy vấn nào sau đây sẽ hiển thị mỗi dòng của bảng Employees đúng một lần, biết rằng bảng Employees có thể chứa các dòng trùng lặp?"
   },
   {
     "id": 28,
@@ -763,25 +763,25 @@
       {
         "text": "This statement will return 1 as many times as the number of rows in the employees table.",
         "isCorrect": true,
-        "rationale": "SELECT 1 FROM employees trả về giá trị 1 cho mỗi hàng trong bảng employees."
+        "rationale": "Khi mệnh đề SELECT chỉ định một hằng số (ở đây là số 1), câu lệnh sẽ trả về giá trị hằng số đó cho mỗi dòng dữ liệu được quét. Vì không có mệnh đề WHERE để lọc dòng, câu lệnh duyệt qua toàn bộ bảng employees và trả về số 1 lặp lại đúng bằng tổng số bản ghi hiện có trong bảng."
       },
       {
         "text": "This statement will return first row of the employees table",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: This statement will return 1 as many times as the number of rows in the employees table."
+        "rationale": "Câu lệnh không sử dụng mệnh đề giới hạn dòng (như ROWNUM = 1 hay FETCH FIRST 1 ROWS ONLY), do đó nó không dừng lại ở dòng đầu tiên."
       },
       {
         "text": "This statement will return only one row and one column in output and value will be 1.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: This statement will return 1 as many times as the number of rows in the employees table."
+        "rationale": "Câu lệnh chỉ trả về đúng 1 dòng nếu bảng employees chỉ có đúng 1 dòng dữ liệu (hoặc khi truy vấn từ bảng ảo DUAL)."
       },
       {
         "text": "This statement will return error.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: This statement will return 1 as many times as the number of rows in the employees table."
+        "rationale": "Đây là cú pháp SQL hoàn toàn hợp lệ, thường được các lập trình viên sử dụng phổ biến trong các truy vấn con kiểm tra tồn tại WHERE EXISTS (SELECT 1 FROM ...) để tối ưu tốc độ."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 28 sang tiếng Việt: What will be the output of the following query? \nSELECT 1 FROM employees;"
+    "hintTranslation": "Kết quả đầu ra của truy vấn sau sẽ là gì?\nSELECT 1 FROM employees;"
   },
   {
     "id": 29,
@@ -791,25 +791,25 @@
       {
         "text": "Clauses must be placed on separate lines.",
         "isCorrect": true,
-        "rationale": "Các mệnh đề SQL không bắt buộc phải đặt trên các dòng riêng; câu lệnh có thể trải trên một hoặc nhiều dòng."
+        "rationale": "Khẳng định này KHÔNG đúng (nên được chọn). SQL là ngôn ngữ có định dạng tự do (free-format); các mệnh đề (như SELECT, FROM, WHERE) hoàn toàn có thể viết trên cùng một dòng, việc xuống dòng riêng cho từng mệnh đề chỉ nhằm mục đích giúp con người dễ đọc hơn chứ không phải quy định bắt buộc của DBMS."
       },
       {
         "text": "SQL statements are not case sensitive.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Clauses must be placed on separate lines."
+        "rationale": "Đây là phát biểu đúng. Các từ khóa, tên bảng và tên cột trong SQL không phân biệt chữ hoa hay chữ thường (trừ dữ liệu chuỗi trong nháy đơn '...' hoặc định danh trong nháy kép \"...\")."
       },
       {
         "text": "SQL statements can be on one or more lines.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Clauses must be placed on separate lines."
+        "rationale": "Đây là phát biểu đúng. Một câu lệnh SQL có thể được viết gọn trên một dòng duy nhất hoặc trải dài trên nhiều dòng liên tiếp."
       },
       {
         "text": "Keywords cannot be abbreviated or split across lines.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: Clauses must be placed on separate lines."
+        "rationale": "Đây là phát biểu đúng. Các từ khóa chuẩn trong SQL (như SELECT, FROM) không được phép viết tắt (không được viết SEL) và không được ngắt đôi chữ giữa các dòng."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 29 sang tiếng Việt: What of the following statements is not true?"
+    "hintTranslation": "Phát biểu nào sau đây KHÔNG đúng về quy tắc cú pháp khi viết câu lệnh SQL?"
   },
   {
     "id": 30,
@@ -819,25 +819,25 @@
       {
         "text": "NULL is a value that is unavailable, unassigned, unknown, or inapplicable",
         "isCorrect": true,
-        "rationale": "NULL biểu thị giá trị không có sẵn, chưa được gán, chưa biết hoặc không áp dụng; nó không đồng nghĩa với chuỗi rỗng hay số 0."
+        "rationale": "Theo định nghĩa chuẩn của E.F. Codd và tài liệu chuẩn của Oracle Database: Giá trị NULL đại diện cho trạng thái dữ liệu không có sẵn (unavailable), chưa được gán (unassigned), chưa biết (unknown) hoặc không áp dụng được (inapplicable). NULL hoàn toàn không tương đương với số 0 hay chuỗi rỗng."
       },
       {
         "text": "NULL is same as blank spaces",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: NULL is a value that is unavailable, unassigned, unknown, or inapplicable"
+        "rationale": "Sai. Khoảng trắng (blank space ' ') là một ký tự chuỗi hợp lệ có độ dài bằng 1 và mã ASCII là 32, chiếm dung lượng lưu trữ trên đĩa, trong khi NULL là sự vắng mặt hoàn toàn của dữ liệu."
       },
       {
         "text": "NULL in a number column can be treated as zero",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: NULL is a value that is unavailable, unassigned, unknown, or inapplicable"
+        "rationale": "Sai. Trong cột số, số 0 là một giá trị số học cụ thể, còn NULL là chưa xác định. Mọi phép toán số học thực hiện với NULL đều cho ra kết quả là NULL chứ không tự động coi là 0."
       },
       {
         "text": "NULL means an incorrect value",
         "isCorrect": false,
-        "rationale": "Không phải đáp án được đánh dấu đúng trong tài liệu. Đáp án theo barem: NULL is a value that is unavailable, unassigned, unknown, or inapplicable"
+        "rationale": "Sai. NULL là một trạng thái dữ liệu hợp lệ được DBMS cho phép (trừ khi cột có ràng buộc NOT NULL), không phải là dữ liệu bị sai lệch hay lỗi hệ thống."
       }
     ],
-    "hintTranslation": "Dịch câu hỏi 30 sang tiếng Việt: What is true about NULL?"
+    "hintTranslation": "Khẳng định nào sau đây là ĐÚNG về giá trị NULL trong cơ sở dữ liệu?"
   },
   {
     "id": 31,
@@ -846,26 +846,26 @@
     "options": [
       {
         "text": "None of the above",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: NULL",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Không đúng vì SQL có quy tắc chuẩn rõ ràng cho phép toán số học chứa NULL."
       },
       {
         "text": "Zero",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: NULL",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai. Giá trị NULL không tự chuyển thành số 0 trong phép toán nhân; nếu muốn lấy giá trị 0 cần dùng hàm xử lý NULL như NVL(commission_pct, 0)."
       },
       {
         "text": "NULL",
-        "rationale": "Đáp án theo barem trong PDF: NULL",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Theo quy tắc số học trong SQL (Arithmetic with NULL): Bất kỳ biểu thức số học nào (+, -, *, /) có sự tham gia của giá trị NULL thì kết quả trả về của toàn bộ biểu thức đó luôn luôn là NULL (any arithmetic calculation involving NULL evaluates to NULL)."
       },
       {
         "text": "Unpredictable",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: NULL",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Kết quả không phải là không thể dự đoán được; chuẩn SQL luôn xác định chắc chắn kết quả là NULL."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Kết quả của biểu thức tính toán sẽ là gì đối với những nhân viên có commission_pct là NULL trong truy vấn sau?\nSELECT 12 * salary * commission_pct 'ANNSAL_COMM' \nFROM employees;"
   },
   {
     "id": 32,
@@ -874,26 +874,26 @@
     "options": [
       {
         "text": "SELECT",
-        "rationale": "Đáp án theo barem trong PDF: SELECT",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Câu lệnh SELECT là lệnh truy vấn dữ liệu cốt lõi thuộc nhóm DQL (Data Query Language) trong SQL, được sử dụng để trích xuất các bản ghi và cột dữ liệu từ một hoặc nhiều bảng/khung nhìn trong CSDL."
       },
       {
         "text": "GET",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "GET là phương thức yêu cầu HTTP trong giao thức Web hoặc từ khóa trong một số ngôn ngữ lập trình, không phải câu lệnh truy vấn dữ liệu của chuẩn SQL."
       },
       {
         "text": "OPEN",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "OPEN trong SQL/PL-SQL là lệnh dùng để mở một con trỏ (cursor) đã được khai báo, không phải lệnh truy vấn trực tiếp từ CSDL."
       },
       {
         "text": "EXTRACT",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "EXTRACT trong SQL là một hàm tích hợp (scalar function) dùng để trích xuất các phần ngày tháng (như YEAR, MONTH từ trường DATE) hoặc trích xuất nút XML, không phải câu lệnh trích xuất bảng."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Câu lệnh SQL nào được sử dụng để trích xuất/lấy dữ liệu từ một cơ sở dữ liệu?"
   },
   {
     "id": 33,
@@ -902,26 +902,26 @@
     "options": [
       {
         "text": "\"AS\" keyword must be used between the column name and the column alias",
-        "rationale": "Đáp án theo barem trong PDF: \"AS\" keyword must be used between the column name and the column alias",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Khẳng định này KHÔNG đúng (nên được chọn). Từ khóa AS là tùy chọn (optional) trong Oracle SQL; người dùng hoàn toàn có thể đặt bí danh ngay sau tên cột chỉ bằng một dấu khoảng trắng mà không cần dùng từ khóa AS (ví dụ: SELECT salary annual_sal FROM employees;)."
       },
       {
         "text": "A column alias renames a column heading",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: \"AS\" keyword must be used between the column name and the column alias",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng. Mục đích chính của bí danh cột là đổi tên tiêu đề cột hiển thị trên tập kết quả của câu lệnh SELECT."
       },
       {
         "text": "A column alias requires double quotation marks if it contains spaces or special characters or is case sensitive",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: \"AS\" keyword must be used between the column name and the column alias",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng. Nếu bí danh cột chứa khoảng trắng, ký tự đặc biệt (như #, $) hoặc cần bảo toàn chữ hoa/thường, bắt buộc phải đặt trong cặp dấu ngoặc kép \"...\"."
       },
       {
         "text": "Immediately follows the column name.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: \"AS\" keyword must be used between the column name and the column alias",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng. Bí danh cột phải được đặt ngay sau tên cột hoặc biểu thức tính toán trong danh sách chọn của mệnh đề SELECT."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Phát biểu nào sau đây về bí danh cột (column aliases) là KHÔNG đúng?"
   },
   {
     "id": 34,
@@ -930,26 +930,26 @@
     "options": [
       {
         "text": "SELECT Persons.FirstName ;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT FirstName FROM Persons;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp vì thiếu mệnh đề FROM Persons;. Oracle sẽ báo lỗi ORA-00923: FROM keyword not found where expected."
       },
       {
         "text": "SELECT FirstName FROM Persons;",
-        "rationale": "Đáp án theo barem trong PDF: SELECT FirstName FROM Persons;",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp truy vấn chuẩn ANSI SQL chính xác nhất: SELECT <tên_cột> FROM <tên_bảng>; để chỉ định cột cần hiển thị và bảng nguồn dữ liệu."
       },
       {
         "text": "EXTRACT FirstName FROM Persons ;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT FirstName FROM Persons;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. EXTRACT không phải là câu lệnh DQL trong SQL để lấy dữ liệu từ một bảng."
       },
       {
         "text": "SELECT FROM persons the FirstName;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT FirstName FROM Persons;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cấu trúc câu lệnh SQL. Danh sách cột phải đứng trước mệnh đề FROM, và từ khóa the không tồn tại trong cú pháp SQL."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Trong SQL, làm thế nào để bạn truy vấn cột có tên \"FirstName\" từ bảng có tên \"Persons\"?"
   },
   {
     "id": 35,
@@ -957,27 +957,27 @@
     "question": "In the following query, which expression is evaluated first? \nSELECT id_number, (quantity - 100 / 0.15 + 20 - 10) FROM inventory",
     "options": [
       {
-        "text": "D. 20 - 10",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: 100 / 0.15",
-        "isCorrect": false
+        "text": "20 - 10",
+        "isCorrect": false,
+        "rationale": "Phép trừ có thứ tự ưu tiên thấp hơn phép chia và nằm ở cuối biểu thức nên không được tính trước. (Đã loại bỏ ký tự artifact 'D.')."
       },
       {
         "text": "0.15 + 20",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: 100 / 0.15",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Phép cộng có thứ tự ưu tiên thấp hơn phép chia 100 / 0.15, do đó số 0.15 phải tham gia phép chia trước khi cộng với 20."
       },
       {
         "text": "100 / 0.15",
-        "rationale": "Đáp án theo barem trong PDF: 100 / 0.15",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Theo quy tắc ưu tiên toán tử trong SQL (Operator Precedence), phép nhân và chia (*, /) luôn có độ ưu tiên cao hơn phép cộng và trừ (+, -). Bên trong cặp dấu ngoặc đơn, phép chia 100 / 0.15 có độ ưu tiên cao nhất nên sẽ được bộ máy tính toán đầu tiên."
       },
       {
         "text": "quantity - 100",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: 100 / 0.15",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Phép trừ có độ ưu tiên thấp hơn phép chia, do đó 100 phải được đem chia cho 0.15 trước rồi kết quả mới được trừ từ quantity."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Trong truy vấn sau, biểu thức nào được tính toán trước tiên?\nSELECT id_number, (quantity - 100 / 0.15 + 20 - 10) FROM inventory"
   },
   {
     "id": 36,
@@ -986,26 +986,26 @@
     "options": [
       {
         "text": "SELECT DISTINCT",
-        "rationale": "Đáp án theo barem trong PDF: SELECT DISTINCT",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp SELECT DISTINCT là chuẩn mực quốc tế ANSI SQL được tất cả các hệ quản trị CSDL hỗ trợ để loại bỏ các bản ghi trùng lặp trong kết quả truy vấn, chỉ giữ lại các giá trị khác nhau duy nhất."
       },
       {
         "text": "SELECT DIFFERENT",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT DISTINCT",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Trong SQL không tồn tại từ khóa DIFFERENT."
       },
       {
         "text": "SELECT UNIQUE",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT DISTINCT",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mặc dù Oracle SQL phiên bản cũ hỗ trợ cú pháp mở rộng SELECT UNIQUE tương đương với DISTINCT, nhưng DISTINCT là từ khóa chuẩn ANSI SQL quốc tế bắt buộc được giảng dạy và kiểm tra trong các kỳ thi."
       },
       {
         "text": "SELECT NO DUPLICATES",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT DISTINCT",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Không tồn tại từ khóa hay mệnh đề NO DUPLICATES trong cú pháp SQL."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Từ khóa/mệnh đề SQL nào được sử dụng để chỉ trả về các giá trị khác nhau (loại bỏ giá trị trùng lặp)?"
   },
   {
     "id": 37,
@@ -1014,26 +1014,26 @@
     "options": [
       {
         "text": "SELECT and FROM",
-        "rationale": "Đáp án theo barem trong PDF: SELECT and FROM",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Trong chuẩn ANSI SQL và Oracle SQL khi truy vấn bảng dữ liệu, hai mệnh đề SELECT (chỉ định danh sách cột/biểu thức cần lấy) và FROM (chỉ định bảng nguồn) là hai mệnh đề bắt buộc tối thiểu để cấu thành một câu lệnh truy vấn hợp lệ."
       },
       {
         "text": "Only SELECT",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT and FROM",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Trong Oracle SQL, nếu thiếu mệnh đề FROM, câu lệnh sẽ phát sinh lỗi cú pháp ORA-00923: FROM keyword not found where expected (ngay cả khi chọn hằng số cũng phải dùng FROM DUAL)."
       },
       {
         "text": "SELECT and WHERE",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT and FROM",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mệnh đề WHERE là tùy chọn để lọc dữ liệu, nhưng không thể có WHERE mà lại thiếu mệnh đề FROM."
       },
       {
         "text": "SELECT, FROM and WHERE",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT and FROM",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mệnh đề WHERE không bắt buộc; nếu không có WHERE, truy vấn vẫn hoàn toàn hợp lệ và trả về tất cả các dòng của bảng."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Những mệnh đề nào trong một câu lệnh SELECT là bắt buộc phải có khi truy vấn dữ liệu từ bảng?"
   },
   {
     "id": 38,
@@ -1042,26 +1042,26 @@
     "options": [
       {
         "text": "SELECT position, manager DISTINCT FROM employee;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT DISTINCT position, manager FROM employee;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai vị trí từ khóa. Từ khóa DISTINCT phải đứng ngay sau từ khóa SELECT, không được đặt ở cuối danh sách cột trước FROM."
       },
       {
         "text": "SELECT DISTINCT position, manager FROM employee;",
-        "rationale": "Đáp án theo barem trong PDF: SELECT DISTINCT position, manager FROM employee;",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp chuẩn xác. Từ khóa DISTINCT đứng ngay sau SELECT và có phạm vi tác động lên toàn bộ tổ hợp các cột được liệt kê phía sau (position, manager), đảm bảo mỗi cặp giá trị chỉ xuất hiện đúng một lần trong tập kết quả."
       },
       {
         "text": "SELECT position, manager FROM employee;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT DISTINCT position, manager FROM employee;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Câu lệnh này thiếu từ khóa DISTINCT nên sẽ trả về tất cả các dòng, bao gồm cả các tổ hợp position và manager bị trùng lặp."
       },
       {
         "text": "SELECT position, DISTINCT manager FROM employee;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT DISTINCT position, manager FROM employee;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp SQL. Trong SQL, không thể đặt DISTINCT trước một cột riêng lẻ ở giữa danh sách cột; nó bắt buộc phải đứng đầu tiên ngay sau SELECT."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Câu lệnh SELECT nào sau đây nên được sử dụng nếu bạn muốn hiển thị các tổ hợp giá trị duy nhất (không trùng lặp) của hai cột POSITION và MANAGER từ bảng EMPLOYEE?"
   },
   {
     "id": 39,
@@ -1070,26 +1070,26 @@
     "options": [
       {
         "text": "Place the alias at the end of the statement to describe the table.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Place the alias after each column separated by a space to describe the column.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đặt tên ở cuối câu lệnh không phải là cách đặt bí danh cho cột (bí danh bảng mới được đặt trong mệnh đề FROM sau tên bảng)."
       },
       {
         "text": "Place the alias after each column separated by a comma to describe the column.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Place the alias after each column separated by a space to describe the column.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Dấu phẩy ',' trong mệnh đề SELECT dùng để phân cách giữa các cột khác nhau; nếu đặt dấu phẩy trước bí danh, Oracle sẽ hiểu nhầm đó là một cột mới và báo lỗi ORA-00904: invalid identifier."
       },
       {
         "text": "Place the alias after each column separated by a space to describe the column.",
-        "rationale": "Đáp án theo barem trong PDF: Place the alias after each column separated by a space to describe the column.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp chuẩn xác của Oracle SQL/SQL*Plus: Bí danh cột được đặt ngay sau tên cột hoặc biểu thức tính toán, phân tách bằng một dấu khoảng trắng (có thể dùng từ khóa AS hoặc không), ví dụ: SELECT first_name fname FROM employees;."
       },
       {
         "text": "Place the alias at the beginning of the statement to describe the table.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Place the alias after each column separated by a space to describe the column.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Câu lệnh SQL phải bắt đầu bằng các từ khóa hành động như SELECT, không thể đặt bí danh ở đầu câu lệnh."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Bạn đang xây dựng các truy vấn trong môi trường SQL*Plus. Phát biểu nào sau đây mô tả đúng cách khai báo bí danh cột (column alias)?"
   },
   {
     "id": 40,
@@ -1098,26 +1098,26 @@
     "options": [
       {
         "text": "SELECT *.Persons",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT * FROM Persons",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Ký hiệu định danh bảng phải viết dạng Persons.*, và câu lệnh thiếu mệnh đề bắt buộc FROM Persons."
       },
       {
         "text": "SELECT Persons",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT * FROM Persons",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Oracle sẽ hiểu Persons là tên của một cột cần lấy, đồng thời thiếu mệnh đề FROM."
       },
       {
         "text": "SELECT [all] FROM Persons",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: SELECT * FROM Persons",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Ký tự ngoặc vuông [...] không phải là cú pháp của chuẩn SQL/Oracle để chỉ định chọn toàn bộ các cột."
       },
       {
         "text": "SELECT * FROM Persons",
-        "rationale": "Đáp án theo barem trong PDF: SELECT * FROM Persons",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Dấu sao '*' (asterisk) là ký tự đại diện chuẩn quốc tế trong SQL, chỉ thị cho bộ máy truy vấn trả về toàn bộ tất cả các cột được định nghĩa trong bảng Persons."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Trong SQL, làm thế nào để bạn truy vấn tất cả các cột từ bảng có tên \"Persons\"?"
   },
   {
     "id": 41,
@@ -1126,26 +1126,26 @@
     "options": [
       {
         "text": "Removes the table",
-        "rationale": "Đáp án theo barem trong PDF: Removes the table",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Lệnh TRUNCATE TABLE thực hiện xóa sạch toàn bộ nội dung dữ liệu của bảng và giải phóng các khối lưu trữ (extents) ngay lập tức ở mức DDL mà không tạo bản ghi undo từng dòng, làm trống hoàn toàn bảng như lúc mới khởi tạo."
       },
       {
         "text": "Removes all rows from a table",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Removes the table",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mặc dù TRUNCATE xóa các bản ghi, nhưng về mặt vận hành nó tác động trực tiếp lên cấu trúc lưu trữ của đối tượng bảng (reset High Water Mark và giải phóng extents) chứ không đơn thuần là xóa dữ liệu mức dòng như DELETE."
       },
       {
         "text": "Shortens the table to 10 rows",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Removes the table",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai hoàn toàn. Lệnh TRUNCATE không có cơ chế giữ lại một số lượng dòng cố định nào (như 10 dòng)."
       },
       {
         "text": "Removes all columns from a table",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Removes the table",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai. TRUNCATE không xóa các cột trong bảng; định nghĩa các cột vẫn tồn tại nguyên vẹn trong từ điển dữ liệu."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Lệnh TRUNCATE thực hiện thao tác gì đối với một bảng trong cơ sở dữ liệu?"
   },
   {
     "id": 42,
@@ -1154,26 +1154,26 @@
     "options": [
       {
         "text": "The CHAR datatype should be used for fixed-length character data",
-        "rationale": "Đáp án theo barem trong PDF: The CHAR datatype should be used for fixed-length character data",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Kiểu dữ liệu CHAR được thiết kế chuyên biệt để lưu trữ chuỗi ký tự có độ dài cố định (fixed-length, tối đa 2000 bytes trong Oracle). Nếu chuỗi đưa vào ngắn hơn độ dài khai báo, Oracle sẽ tự động bù thêm các ký tự khoảng trắng vào cuối (blank-padded)."
       },
       {
         "text": "The TIMESTAMP data type is an extension of the VARCHAR2 data type",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: The CHAR datatype should be used for fixed-length character data",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. TIMESTAMP là kiểu dữ liệu mở rộng của kiểu DATE (lưu trữ thêm phần giây phân số và múi giờ), không phải phần mở rộng của kiểu chuỗi VARCHAR2."
       },
       {
         "text": "The BLOB data type stores character data up to four gigabytes",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: The CHAR datatype should be used for fixed-length character data",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. BLOB (Binary Large Object) dùng để lưu dữ liệu nhị phân phi cấu trúc (ảnh, video, file nén), còn để lưu dữ liệu ký tự văn bản khối lượng lớn (character data) phải dùng kiểu CLOB."
       },
       {
         "text": "The VARCHAR2 data type stores character data up to four gigabytes",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: The CHAR datatype should be used for fixed-length character data",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. Dung lượng tối đa của kiểu VARCHAR2 trong SQL chuẩn của Oracle truyền thống là 4000 bytes (từ 12c mở rộng lên tối đa 32767 bytes khi cấu hình extended), không thể lưu tới 4 Gigabytes."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Phát biểu nào sau đây về các kiểu dữ liệu trong Oracle là ĐÚNG?"
   },
   {
     "id": 43,
@@ -1182,26 +1182,26 @@
     "options": [
       {
         "text": "A change to the DEFAULT value affects only subsequent insertions to the table.",
-        "rationale": "Đáp án theo barem trong PDF: A change to the DEFAULT value affects only subsequent insertions to the table.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Trong Oracle SQL, việc thêm mới hoặc sửa đổi giá trị mặc định (DEFAULT) của một cột chỉ có tác dụng đối với các thao tác INSERT được thực hiện sau thời điểm đó (subsequent insertions). Nó hoàn toàn không tự động cập nhật lại các dòng dữ liệu đã tồn tại từ trước trong bảng."
       },
       {
         "text": "Column definitions cannot be altered to add DEFAULT values.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: A change to the DEFAULT value affects only subsequent insertions to the table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. Oracle hoàn toàn cho phép dùng lệnh ALTER TABLE ... MODIFY (column DEFAULT value) để bổ sung hoặc thay đổi giá trị mặc định cho cột của một bảng đã tồn tại."
       },
       {
         "text": "Column definitions cannot be altered at add DEFAULT values for columns with a NUMBER data type",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: A change to the DEFAULT value affects only subsequent insertions to the table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. Mệnh đề DEFAULT có thể áp dụng cho mọi kiểu dữ liệu cơ bản bao gồm NUMBER, VARCHAR2, DATE."
       },
       {
         "text": "All the rows that have a NULL value for the SALARY column will be updated with the value5000.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: A change to the DEFAULT value affects only subsequent insertions to the table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. Lệnh DDL định nghĩa giá trị DEFAULT không bao giờ tự động cập nhật (UPDATE) các giá trị NULL hiện có trong bảng thành giá trị mặc định."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Bảng EMPLOYEES có các cột:\nLAST_NAME  VARCHAR2(35)\nSALARY     NUMBER(8,2)\nHIRE_DATE  DATE\nBan quản lý muốn thêm giá trị mặc định cho cột SALARY. Bạn dự định thay đổi bảng bằng câu lệnh SQL sau:\nALTER TABLE EMPLOYEES \nMODIFY (SALARY DEFAULT 5000);\nPhát biểu nào sau đây là ĐÚNG về câu lệnh ALTER của bạn?"
   },
   {
     "id": 44,
@@ -1210,26 +1210,26 @@
     "options": [
       {
         "text": "ALTER TABLE commercials MODIFY (description VARCHAR2(2000));",
-        "rationale": "Đáp án theo barem trong PDF: ALTER TABLE commercials MODIFY (description VARCHAR2(2000));",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp DDL chuẩn xác của Oracle để tăng kích thước cột chuỗi ký tự độ dài thay đổi: ALTER TABLE <tên_bảng> MODIFY (<tên_cột> VARCHAR2(2000));. Thao tác tăng kích thước cột luôn được Oracle thực thi thành công ngay cả khi bảng đã có sẵn hàng chục nghìn dòng dữ liệu."
       },
       {
         "text": "ALTER TABLE commercials MODIFY (description CHAR2(2000));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE commercials MODIFY (description VARCHAR2(2000));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp vì trong cơ sở dữ liệu Oracle không tồn tại kiểu dữ liệu nào có tên là CHAR2."
       },
       {
         "text": "ALTER TABLE commercials CHANGE (description CHAR2(2000));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE commercials MODIFY (description VARCHAR2(2000));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp kép: từ khóa CHANGE thuộc về MySQL chứ không phải Oracle DDL (Oracle dùng MODIFY), đồng thời kiểu CHAR2 không tồn tại."
       },
       {
         "text": "ALTER TABLE commercials CHANGE (description VARCHAR2(2000));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE commercials MODIFY (description VARCHAR2(2000));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp vì Oracle DDL không hỗ trợ từ khóa CHANGE để sửa đổi cột; bạn bắt buộc phải dùng từ khóa MODIFY."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Bạn cần thay đổi định nghĩa của một bảng hiện có. Bảng COMMERCIALS cần đổi cột DESCRIPTION để lưu chuỗi ký tự độ dài thay đổi lên tới 2000 bytes. Cột này hiện đang lưu 1000 bytes mỗi giá trị. Bảng đang chứa 20000 dòng. Câu lệnh nào sau đây là hợp lệ?"
   },
   {
     "id": 45,
@@ -1238,26 +1238,26 @@
     "options": [
       {
         "text": "All views based on the DEPT table are deleted.",
-        "rationale": "Đáp án theo barem trong PDF: All views based on the DEPT table are deleted.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Phát biểu này SAI (nên được chọn). Khi một bảng bị xóa bằng lệnh DROP TABLE, các View và Stored Procedure tham chiếu đến bảng đó KHÔNG bị xóa khỏi cơ sở dữ liệu; chúng chỉ bị đánh dấu trạng thái là không hợp lệ (INVALID trong Data Dictionary)."
       },
       {
         "text": "You cannot roll back this statement.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: All views based on the DEPT table are deleted.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng. DROP TABLE là lệnh DDL, luôn tự động kích hoạt một commit ngầm định (implicit commit), do đó không thể dùng lệnh ROLLBACK để hoàn tác."
       },
       {
         "text": "All pending transactions are committed.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: All views based on the DEPT table are deleted.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng. Trước khi thực thi bất kỳ lệnh DDL nào, Oracle luôn tự động COMMIT mọi giao dịch DML đang chờ xử lý trong phiên làm việc hiện tại."
       },
       {
         "text": "All indexes based on the DEPT table are dropped.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: All views based on the DEPT table are deleted.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng. Tất cả các chỉ mục (Indexes) được xây dựng trên bảng DEPT sẽ tự động bị xóa bỏ cùng với bảng."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Đánh giá câu lệnh SQL sau:\nDROP TABLE DEPT;\nPhát biểu nào sau đây là SAI về câu lệnh SQL trên?"
   },
   {
     "id": 46,
@@ -1266,26 +1266,26 @@
     "options": [
       {
         "text": "A hexadecimal string representing the unique address of a row in its table.",
-        "rationale": "Đáp án theo barem trong PDF: A hexadecimal string representing the unique address of a row in its table.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "ROWID là kiểu dữ liệu giả cột (pseudo-column) trong Oracle, biểu diễn địa chỉ vật lý duy nhất của một dòng dữ liệu trên đĩa (gồm Data Object ID, Relative Datafile ID, Block Number và Row Number) dưới dạng chuỗi hệ cơ số thập lục phân / Base-64. Đây là phương thức truy cập trực tiếp một dòng dữ liệu nhanh nhất trong Oracle."
       },
       {
         "text": "Binary data up to 4 gigabytes",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: A hexadecimal string representing the unique address of a row in its table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mô tả này tương ứng với kiểu dữ liệu BLOB (Binary Large Object), không phải kiểu dữ liệu địa chỉ vật lý ROWID."
       },
       {
         "text": "Character data up to 4 gigabytes.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: A hexadecimal string representing the unique address of a row in its table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mô tả này tương ứng với kiểu dữ liệu CLOB (Character Large Object) hoặc kiểu LONG cũ, không phải ROWID."
       },
       {
         "text": "Raw binary data of variable length up to 2 gigabytes.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: A hexadecimal string representing the unique address of a row in its table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mô tả này tương ứng với kiểu dữ liệu LONG RAW (dữ liệu nhị phân thô tối đa 2GB), không liên quan đến ROWID."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Phát biểu nào sau đây mô tả đúng về kiểu dữ liệu ROWID trong Oracle?"
   },
   {
     "id": 47,
@@ -1294,26 +1294,26 @@
     "options": [
       {
         "text": "Immediately following statement execution.",
-        "rationale": "Đáp án theo barem trong PDF: Immediately following statement execution.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Lệnh ALTER TABLE ... DROP COLUMN là một thao tác DDL trực tiếp. Ngay sau khi câu lệnh hoàn tất thực thi (Immediately following statement execution), cột sẽ bị xóa hoàn toàn khỏi định nghĩa bảng và không gian lưu trữ của cột đó trên đĩa sẽ được giải phóng ngay lập tức."
       },
       {
         "text": "After the Alter table drop unused columns command is issued.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Immediately following statement execution.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Lệnh DROP UNUSED COLUMNS chỉ dùng khi trước đó bạn đã đánh dấu cột bằng lệnh SET UNUSED; còn ở đây bạn đã chạy trực tiếp DROP COLUMN nên cột bị xóa ngay."
       },
       {
         "text": "After the Alter table set unused column command is issued.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Immediately following statement execution.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Lệnh SET UNUSED chỉ dùng để đánh dấu vô hiệu hóa cột để tránh khóa bảng lâu, hoàn toàn không phải là bước tiếp theo của lệnh DROP COLUMN."
       },
       {
         "text": "After the Alter table modify command is issued.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Immediately following statement execution.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Lệnh ALTER TABLE ... MODIFY dùng để sửa kiểu dữ liệu hoặc thuộc tính cột, không liên quan đến tiến trình xóa cột của lệnh DROP COLUMN."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Bạn vừa thực thi câu lệnh sau:\nALTER TABLE marketing \nDROP COLUMN profit;\nLựa chọn nào sau đây xác định đúng thời điểm cột profit thực sự bị xóa khỏi cơ sở dữ liệu?"
   },
   {
     "id": 48,
@@ -1322,26 +1322,26 @@
     "options": [
       {
         "text": "Catch_#22",
-        "rationale": "Đáp án theo barem trong PDF: Catch_#22",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Tên bảng này hoàn toàn hợp lệ theo quy tắc đặt tên định danh của Oracle: bắt đầu bằng một chữ cái ('C'), có độ dài từ 1 đến 30 ký tự, và chỉ bao gồm các ký tự hợp lệ: chữ cái, chữ số, dấu gạch dưới '_', dấu thăng '#' và dấu đô la '$'."
       },
       {
         "text": "Number",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Catch_#22",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Không hợp lệ vì NUMBER là một từ khóa dành riêng (reserved word) của Oracle dùng cho kiểu dữ liệu số, không được dùng làm tên bảng chuẩn."
       },
       {
         "text": "1966_Invoices",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Catch_#22",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Không hợp lệ vì vi phạm quy tắc bắt buộc: tên bảng trong Oracle phải bắt đầu bằng một chữ cái (A-Z), không được phép bắt đầu bằng một chữ số ('1966...')."
       },
       {
         "text": "#Invoices",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Catch_#22",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Không hợp lệ vì tên bảng bắt buộc phải bắt đầu bằng một chữ cái; ký tự '#' chỉ được phép xuất hiện từ vị trí thứ hai trở đi."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Tên nào sau đây là một tên bảng (table name) hợp lệ trong Oracle?"
   },
   {
     "id": 49,
@@ -1350,26 +1350,26 @@
     "options": [
       {
         "text": "Tables are created in your schema.",
-        "rationale": "Đáp án theo barem trong PDF: Tables are created in your schema.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Khi người dùng thực thi lệnh CREATE TABLE table_name mà không chỉ định rõ tiền tố schema (ví dụ schema_name.table_name), Oracle theo mặc định sẽ luôn tạo bảng đó bên trong vùng lược đồ (schema) của chính tài khoản người dùng hiện tại đang đăng nhập."
       },
       {
         "text": "The table is accessible to all users.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Tables are created in your schema.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mặc định bảng mới tạo là riêng tư (private) đối với chủ sở hữu; các người dùng khác trong CSDL hoàn toàn không có quyền truy cập trừ khi được cấp quyền (GRANT)."
       },
       {
         "text": "Tables are created in the public schema.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Tables are created in your schema.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Oracle không có khái niệm tạo bảng người dùng vào 'public schema'; PUBLIC chỉ là một nhóm người dùng (role/grantee) dùng cho synonym công khai."
       },
       {
         "text": "Tables are created in the DBA schema.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Tables are created in your schema.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Bảng của người dùng thông thường không được tạo vào schema của DBA trừ khi DBA chỉ định rõ tiền tố SYS. hoặc SYSTEM. trong câu lệnh tạo bảng."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Phát biểu nào mô tả đúng hành vi mặc định khi bạn thực hiện tạo một bảng (CREATE TABLE) trong Oracle?"
   },
   {
     "id": 50,
@@ -1378,26 +1378,26 @@
     "options": [
       {
         "text": "ALTER TABLE students ADD CONSTRAINT stud_id_pk PRIMARY KEY (student_id);",
-        "rationale": "Đáp án theo barem trong PDF: ALTER TABLE students ADD CONSTRAINT stud_id_pk PRIMARY KEY (student_id);",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp DDL chuẩn xác và hoàn chỉnh nhất của Oracle để thêm ràng buộc khóa chính: ALTER TABLE <tên_bảng> ADD CONSTRAINT <tên_ràng_buộc> PRIMARY KEY (<tên_cột>);. Tên ràng buộc được chỉ định rõ ràng và cột khóa chính được đặt trong cặp ngoặc đơn."
       },
       {
         "text": "ALTER TABLE students ADD PRIMARY KEY student_id;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE students ADD CONSTRAINT stud_id_pk PRIMARY KEY (student_id);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp vì tên cột khóa chính bắt buộc phải được bao quanh bởi cặp dấu ngoặc đơn (student_id)."
       },
       {
         "text": "ALTER TABLE students ADD CONSTRAINT PRIMARY KEY (student_id);",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE students ADD CONSTRAINT stud_id_pk PRIMARY KEY (student_id);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp vì từ khóa CONSTRAINT bắt buộc phải đi kèm với một tên ràng buộc cụ thể; nếu không muốn đặt tên ràng buộc thì phải lược bỏ từ khóa CONSTRAINT."
       },
       {
         "text": "ALTER TABLE students ADD CONSTRAINT stud_id_pk PRIMARY KEY student_id;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE students ADD CONSTRAINT stud_id_pk PRIMARY KEY (student_id);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp vì thiếu cặp dấu ngoặc đơn bao quanh tên cột khóa chính (student_id)."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Bạn cần sửa đổi bảng STUDENTS để thêm khóa chính (PRIMARY KEY) trên cột STUDENT_ID. Bảng hiện đang rỗng. Câu lệnh nào sau đây thực hiện được tác vụ này?"
   },
   {
     "id": 51,
@@ -1406,26 +1406,26 @@
     "options": [
       {
         "text": "It releases the storage space used by the table.",
-        "rationale": "Đáp án theo barem trong PDF: It releases the storage space used by the table.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Phát biểu này KHÔNG đúng trong trường hợp khi sử dụng kèm tùy chọn REUSE STORAGE (lệnh này yêu cầu giữ lại các extent đã cấp phát cho bảng nhằm tối ưu hiệu năng khi chuẩn bị nạp lại lượng lớn dữ liệu mới)."
       },
       {
         "text": "It does not release the storage space used by the table.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: It releases the storage space used by the table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng đối với hành vi khi TRUNCATE bảng có chỉ định mệnh đề REUSE STORAGE, giúp bảng giữ nguyên các extent đã cấp phát."
       },
       {
         "text": "You can NOT roll back the deletion of rows after the statement executes.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: It releases the storage space used by the table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng. TRUNCATE là lệnh DDL nên tự động phát sinh commit ngầm định và không ghi chi tiết từng dòng vào Undo Segment, do đó tuyệt đối không thể dùng ROLLBACK để khôi phục."
       },
       {
         "text": "You must be the owner of the table or have DELETE ANY TABLE system privileges to truncate the DEPT table",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: It releases the storage space used by the table.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là phát biểu đúng về mặt bảo mật quyền hạn trong Oracle: người thực thi phải là chủ sở hữu (owner) của bảng hoặc sở hữu đặc quyền hệ thống DROP ANY TABLE (hoặc đặc quyền tương đương) để truncate bảng."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Đánh giá câu lệnh SQL sau:\nTRUNCATE TABLE DEPT;\nPhát biểu nào sau đây KHÔNG đúng về câu lệnh SQL trên?"
   },
   {
     "id": 52,
@@ -1434,26 +1434,26 @@
     "options": [
       {
         "text": "Must begin with either a number or a letter.",
-        "rationale": "Đáp án theo barem trong PDF: Must begin with either a number or a letter.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Khẳng định này KHÔNG đúng (nên được chọn). Quy tắc đặt tên định danh chuẩn trong Oracle bắt buộc tên bảng phải bắt đầu bằng một CHỮ CÁI (letter A-Z), tuyệt đối không được bắt đầu bằng một chữ số (number)."
       },
       {
         "text": "Must be 1-30 characters long.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Must begin with either a number or a letter.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là quy tắc đúng trong Oracle truyền thống (tên định danh có độ dài từ 1 đến 30 ký tự)."
       },
       {
         "text": "Should not be an Oracle Server reserved word.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Must begin with either a number or a letter.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là quy tắc đúng. Tên bảng không được trùng với các từ khóa dành riêng của hệ thống Oracle (như SELECT, TABLE, NUMBER,...)."
       },
       {
         "text": "Must contain only A-Z, a-z, 0-9, _, $, and #.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: Must begin with either a number or a letter.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Đây là quy tắc đúng. Bộ ký tự hợp lệ cho tên bảng chuẩn trong Oracle chỉ bao gồm các chữ cái, chữ số và ba ký tự đặc biệt: '_', '$', '#'..."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Quy tắc nào sau đây KHÔNG đúng trong các quy chuẩn đặt tên bảng trong cơ sở dữ liệu Oracle?"
   },
   {
     "id": 53,
@@ -1462,26 +1462,26 @@
     "options": [
       {
         "text": "CREATE TABLE EMP9$# AS (empid number(2));",
-        "rationale": "Đáp án theo barem trong PDF: CREATE TABLE EMP9$# AS (empid number(2));",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp hoàn toàn hợp lệ. Tên bảng 'EMP9$#' tuân thủ đầy đủ quy tắc định danh của Oracle: bắt đầu bằng chữ cái 'E', độ dài dưới 30 ký tự và chứa các ký tự đặc biệt được phép là '$' và '#'. Mệnh đề AS kết hợp định nghĩa cột tạo bảng mới hợp lệ."
       },
       {
         "text": "CREATE TABLE EMP*123 AS (empid number(2));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: CREATE TABLE EMP9$# AS (empid number(2));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Không hợp lệ vì tên bảng chứa ký tự sao '*', một ký tự toán tử đặc biệt bị cấm trong tên định danh của Oracle."
       },
       {
         "text": "CREATE TABLE PACKAGE AS (packid num(2));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: CREATE TABLE EMP9$# AS (empid number(2));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Không hợp lệ vì PACKAGE là từ khóa dành riêng (reserved word) trong Oracle PL/SQL, và kiểu dữ liệu num(2) viết tắt không chuẩn."
       },
       {
         "text": "CREATE TABLE EMP_TEST AS (empid number(2));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: CREATE TABLE EMP9$# AS (empid number(2));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mục đích chính của câu hỏi là kiểm tra tập ký tự đặc biệt hợp lệ (bao gồm '$' và '#') trong quy tắc đặt tên bảng của Oracle, vốn được thể hiện chính xác nhất ở lựa chọn EMP9$#."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Câu lệnh CREATE TABLE nào sau đây là hợp lệ trong Oracle?"
   },
   {
     "id": 54,
@@ -1490,26 +1490,26 @@
     "options": [
       {
         "text": "INTERVAL MONTH TO DAY",
-        "rationale": "Đáp án theo barem trong PDF: INTERVAL MONTH TO DAY",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Kiểu dữ liệu này KHÔNG tồn tại trong Oracle. Oracle chỉ hỗ trợ hai kiểu khoảng thời gian: INTERVAL YEAR TO MONTH (chênh lệch theo năm-tháng) và INTERVAL DAY TO SECOND (chênh lệch theo ngày-giờ-phút-giây). Không thể ghép từ Tháng sang Ngày vì số lượng ngày trong mỗi tháng là không cố định."
       },
       {
         "text": "TIMESTAMP",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: INTERVAL MONTH TO DAY",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "TIMESTAMP là kiểu dữ liệu hợp lệ trong Oracle, dùng để lưu trữ ngày giờ chi tiết đến phần phân số của giây."
       },
       {
         "text": "INTERVAL DAY TO SECOND",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: INTERVAL MONTH TO DAY",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "INTERVAL DAY TO SECOND là kiểu dữ liệu hoàn toàn hợp lệ trong Oracle, dùng để biểu diễn khoảng thời gian theo ngày, giờ, phút, giây."
       },
       {
         "text": "INTERVAL YEAR TO MONTH",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: INTERVAL MONTH TO DAY",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "INTERVAL YEAR TO MONTH là kiểu dữ liệu hoàn toàn hợp lệ trong Oracle, dùng để biểu diễn khoảng thời gian theo năm và tháng."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Kiểu dữ liệu DATETIME nào sau đây KHÔNG THỂ sử dụng khi định nghĩa cột trong Oracle?"
   },
   {
     "id": 55,
@@ -1518,26 +1518,26 @@
     "options": [
       {
         "text": "The size of a table does NOT need to be specified",
-        "rationale": "Đáp án theo barem trong PDF: The size of a table does NOT need to be specified",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Khi tạo bảng (CREATE TABLE), người dùng không cần phải chỉ định kích thước cụ thể của bảng. Oracle sẽ tự động cấp phát dung lượng ban đầu (Initial Extent) dựa trên tham số mặc định của Tablespace và tự động cấp phát thêm khi bảng có thêm dữ liệu."
       },
       {
         "text": "A table can have up to 10,000 columns",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: The size of a table does NOT need to be specified",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai. Giới hạn số cột tối đa cho một bảng trong Oracle Database truyền thống là 1000 cột, không thể lên tới 10.000 cột."
       },
       {
         "text": "A table CANNOT be created while users are using the database.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: The size of a table does NOT need to be specified",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai. Oracle là hệ quản trị CSDL đa người dùng đồng thời; việc tạo bảng mới chỉ cập nhật từ điển dữ liệu và hoàn toàn thực hiện được khi nhiều người dùng khác đang làm việc."
       },
       {
         "text": "The structure of a table CANNOT be modified while the table is online.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: The size of a table does NOT need to be specified",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai. Cấu trúc bảng có thể được sửa đổi trực tuyến (online) thông qua các lệnh ALTER TABLE (như thêm cột, tăng kích thước cột, thêm ràng buộc) mà không cần phải đưa bảng offline."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Phát biểu nào sau đây về bảng dữ liệu (table) trong Oracle là ĐÚNG?"
   },
   {
     "id": 56,
@@ -1546,26 +1546,26 @@
     "options": [
       {
         "text": "ALTER TABLE employee MODIFY emp_lname VARCHAR2(25);",
-        "rationale": "Đáp án theo barem trong PDF: ALTER TABLE employee MODIFY emp_lname VARCHAR2(25);",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp DDL chuẩn xác của Oracle để tăng độ rộng cột: ALTER TABLE <tên_bảng> MODIFY <tên_cột> VARCHAR2(25);. Việc tăng độ dài kiểu chuỗi ký tự luôn được Oracle cho phép thực thi ngay lập tức mà không phụ thuộc vào số lượng bản ghi hiện có trong bảng."
       },
       {
         "text": "You CANNOT increases the width of the EMP_LNAME column.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE employee MODIFY emp_lname VARCHAR2(25);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. Oracle luôn cho phép tăng độ rộng của một cột chuỗi ký tự, kể cả khi bảng chứa hàng triệu bản ghi (chỉ khi giảm độ dài mới yêu cầu dữ liệu không vượt quá kích thước mới hoặc cột phải rỗng)."
       },
       {
         "text": "ALTER TABLE employee RENAME emp_lname VARCHAR2(25);",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE employee MODIFY emp_lname VARCHAR2(25);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Lệnh RENAME COLUMN chỉ dùng để đổi tên cột, không thể dùng để thay đổi kích thước hay kiểu dữ liệu của cột."
       },
       {
         "text": "ALTER employee TABLE MODIFY COLUMN emp_lname VARCHAR2(25);",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE employee MODIFY emp_lname VARCHAR2(25);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp SQL. Phải viết là ALTER TABLE employee, không được viết ALTER employee TABLE, đồng thời Oracle không dùng từ khóa COLUMN sau MODIFY."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Xét bảng employees nói chung, câu lệnh nào sau đây nên được sử dụng để tăng độ dài cột EMP_LNAME lên 25 ký tự nếu cột đó hiện đang chứa 3000 bản ghi?"
   },
   {
     "id": 57,
@@ -1574,26 +1574,26 @@
     "options": [
       {
         "text": "DROP TABLE po_detail;",
-        "rationale": "Đáp án theo barem trong PDF: DROP TABLE po_detail;",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Lệnh DROP TABLE là lệnh DDL xóa bỏ hoàn toàn định nghĩa bảng, toàn bộ dữ liệu bên trong, cùng với tất cả các chỉ mục (indexes) và ràng buộc phụ thuộc khỏi cơ sở dữ liệu."
       },
       {
         "text": "DELETE TABLE po_detail;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: DROP TABLE po_detail;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Lệnh DML xóa dữ liệu có cú pháp là DELETE FROM po_detail; (không có từ khóa TABLE). Hơn nữa, DELETE chỉ xóa các dòng dữ liệu chứ không xóa cấu trúc bảng hay chỉ mục."
       },
       {
         "text": "TRUNCATE TABLE po_detail;",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: DROP TABLE po_detail;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Lệnh TRUNCATE TABLE chỉ xóa toàn bộ dữ liệu trong bảng và thu hồi dung lượng lưu trữ, nhưng vẫn giữ nguyên cấu trúc bảng và các chỉ mục trong CSDL."
       },
       {
         "text": "ALTER TABLE po_detail SET UNUSED (po_num, po_line_id, product_id, quantity, unit_price);",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: DROP TABLE po_detail;",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Lệnh SET UNUSED chỉ đánh dấu ẩn các cột được chỉ định để ngăn người dùng truy vấn, không xóa bảng hay cấu trúc của bảng po_detail."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Câu lệnh nào sau đây sẽ xóa vĩnh viễn toàn bộ dữ liệu, các chỉ mục (indexes) và cả cấu trúc của bảng PO_DETAIL?"
   },
   {
     "id": 58,
@@ -1602,26 +1602,26 @@
     "options": [
       {
         "text": "You CANNOT modifies the data type of the MGR_ID column.",
-        "rationale": "Đáp án theo barem trong PDF: You CANNOT modifies the data type of the MGR_ID column.",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Trong Oracle SQL, nếu một cột đang chứa dữ liệu, bạn KHÔNG THỂ thay đổi trực tiếp kiểu dữ liệu của nó từ NUMBER sang VARCHAR2 bằng lệnh MODIFY. Oracle sẽ chặn thao tác và báo lỗi ORA-01439: column to be modified must be empty to change datatype. (Để làm được, bắt buộc phải tạo cột tạm, sao chép dữ liệu, hoặc làm rỗng cột trước)."
       },
       {
         "text": "ALTER employee MODIFY (mgr_id VARCHAR2(15));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: You CANNOT modifies the data type of the MGR_ID column.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp (thiếu từ khóa TABLE), đồng thời câu lệnh này sẽ thất bại và báo lỗi ORA-01439 vì cột đang chứa dữ liệu số."
       },
       {
         "text": "ALTER TABLE employee MODIFY (mgr_id VARCHAR2(15));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: You CANNOT modifies the data type of the MGR_ID column.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Mặc dù đúng cú pháp lệnh MODIFY, nhưng câu lệnh này không thể thực thi thành công và sẽ ném lỗi ORA-01439 do cột mgr_id đang chứa sẵn dữ liệu."
       },
       {
         "text": "ALTER employee TABLE MODIFY COLUMN (mgr_id VARCHAR2(15));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: You CANNOT modifies the data type of the MGR_ID column.",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai hoàn toàn cú pháp SQL (đảo vị trí employee TABLE và thừa từ khóa COLUMN)."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Xét bảng Employees trong đó cột MGR_ID hiện đang chứa các mã số nhân viên (kiểu số), và bạn cần cho phép người dùng nhập các ký tự chữ vào cột này. Bạn nên sử dụng phương án nào để thực hiện việc này?"
   },
   {
     "id": 59,
@@ -1630,26 +1630,26 @@
     "options": [
       {
         "text": "CREATE TABLE time (time1 NUMBER(9));",
-        "rationale": "Đáp án theo barem trong PDF: CREATE TABLE time (time1 NUMBER(9));",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Câu lệnh này thực thi thành công. Trong Oracle, từ 'time' không phải là từ khóa dành riêng tuyệt đối (reserved word) bị cấm đặt tên bảng, tên cột time1 bắt đầu bằng chữ cái hợp lệ và kiểu dữ liệu NUMBER(9) chuẩn cú pháp."
       },
       {
         "text": "CREATE TABLE date (time_id NUMBER(9));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: CREATE TABLE time (time1 NUMBER(9));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Thất bại vì DATE là từ khóa dành riêng cốt lõi của Oracle dùng cho kiểu dữ liệu ngày tháng, không thể dùng làm tên bảng chuẩn trừ khi đặt trong ngoặc kép."
       },
       {
         "text": "CREATE TABLE time* (time_id NUMBER(9));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: CREATE TABLE time (time1 NUMBER(9));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Thất bại vì tên bảng time* chứa ký tự dấu sao '*', vi phạm quy tắc đặt tên định danh của Oracle (chỉ cho phép chữ cái, chữ số, '_', '$', '#')."
       },
       {
         "text": "CREATE TABLE $time (time_id NUMBER(9));",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: CREATE TABLE time (time1 NUMBER(9));",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Thất bại vì tên bảng $time bắt đầu bằng ký tự đặc biệt '$', vi phạm quy tắc bắt buộc của Oracle là tên bảng phải bắt đầu bằng một chữ cái (A-Z)."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Câu lệnh CREATE TABLE nào sau đây sẽ KHÔNG bị lỗi khi thực thi trong Oracle?"
   },
   {
     "id": 60,
@@ -1658,26 +1658,26 @@
     "options": [
       {
         "text": "ALTER TABLE product MODIFY (list_price NUMBER(6,2) DEFAULT 5);",
-        "rationale": "Đáp án theo barem trong PDF: ALTER TABLE product MODIFY (list_price NUMBER(6,2) DEFAULT 5);",
-        "isCorrect": true
+        "isCorrect": true,
+        "rationale": "Cú pháp chuẩn của Oracle để sửa đổi thuộc tính cột là ALTER TABLE product MODIFY (tên_cột kiểu_mới DEFAULT giá_trị);. Vì bảng hiện tại hoàn toàn rỗng (contains no records), Oracle cho phép giảm độ chính xác của cột từ NUMBER(7,2) xuống NUMBER(6,2) kèm theo thiết lập giá trị mặc định DEFAULT 5."
       },
       {
         "text": "ALTER TABLE product ADD OR REPLACE (list_price NUMBER(8,2) DEFAULT 5);",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE product MODIFY (list_price NUMBER(6,2) DEFAULT 5);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp. Trong Oracle DDL không có mệnh đề ADD OR REPLACE cho cột bảng (chỉ dùng cho View/Procedure), đồng thời độ chính xác NUMBER(8,2) sai yêu cầu đề bài."
       },
       {
         "text": "ALTER TABLE product MODIFY COLUMN (list_price NUMBER(6,2) DEFAULT '$5.00');",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE product MODIFY (list_price NUMBER(6,2) DEFAULT 5);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Sai cú pháp vì Oracle không dùng từ khóa COLUMN sau MODIFY, và sai kiểu dữ liệu khi gán giá trị chuỗi '$5.00' cho một cột kiểu số NUMBER."
       },
       {
         "text": "You CANNOT reduces the size of the LIST_PRICE column.",
-        "rationale": "Không phải đáp án được đánh dấu đúng trong PDF. Đáp án theo barem: ALTER TABLE product MODIFY (list_price NUMBER(6,2) DEFAULT 5);",
-        "isCorrect": false
+        "isCorrect": false,
+        "rationale": "Khẳng định sai. Người dùng hoàn toàn có thể giảm kích thước/độ chính xác của một cột nếu bảng đang rỗng (không chứa bản ghi nào) hoặc tất cả giá trị hiện có trong cột đều là NULL."
       }
     ],
-    "hintTranslation": "Đọc kỹ câu hỏi và đối chiếu các lựa chọn với kiến thức trong tài liệu."
+    "hintTranslation": "Kiểm tra cấu trúc của bảng PRODUCT:\nPRODUCT_ID    NUMBER        Primary Key\nPRODUCT_NAME  VARCHAR2(25)\nSUPPLIER_ID   NUMBER\nLIST_PRICE    NUMBER(7,2)\nBạn cần giảm độ chính xác của cột LIST_PRICE xuống 6 với độ lẻ 2 (NUMBER(6,2)) và đảm bảo rằng khi thêm một dòng mới mà không cung cấp giá trị cho cột LIST_PRICE, mức giá 5.00$ sẽ tự động được gán. Bảng PRODUCT hiện đang không có bản ghi nào.\nBạn nên sử dụng câu lệnh nào?"
   },
   {
     "id": 61,
@@ -4179,7 +4179,7 @@
       {
         "text": "SELECT emp_name, department_name, city FROM employees e, departments d, locations l JOIN ON (e.department_id = d.department_id) AND (d.location_id = l.location_id) AND salary > 10000;",
         "isCorrect": true,
-        "rationale": "Theo barem gốc của C-DAC, đáp án này được chỉ định điểm tuyệt đối (Grade: 100) cho câu hỏi nối 3 bảng."
+        "rationale": "Câu lệnh chỉ định rõ ràng các bảng trong mệnh đề FROM và sử dụng cú pháp kết hợp JOIN ON để ràng buộc các khóa ngoại giữa employees-departments và departments-locations kèm theo điều kiện lọc lương."
       },
       {
         "text": "SELECT emp_name, department_name, city FROM employees e, departments d, locations l WHERE salary > 10000;",
@@ -4245,7 +4245,7 @@
       {
         "text": "You use an outerjoin to see only the rows that do not meet the join condition.",
         "isCorrect": false,
-        "rationale": "Theo barem đề thi C-DAC, phương án A được chỉ định mức điểm tuyệt đối Grade: 100."
+        "rationale": "Phát biểu này sai về bản chất: Outer join trả về cả các dòng thỏa mãn điều kiện nối LẪN các dòng không khớp từ bảng được chỉ định (bảo toàn dòng), chứ không phải 'chỉ xem các dòng không thỏa mãn'."
       },
       {
         "text": "You cannot link a condition that is involved in an outerjoin to another condition by using the OR operator.",
@@ -4403,22 +4403,22 @@
       {
         "text": "Two tables are joined on the columns having different names.",
         "isCorrect": true,
-        "rationale": "Theo barem gốc tài liệu trắc nghiệm C-DAC, đáp án D được set Grade: 100 (lưu ý: lý thuyết tổng quát tích Đề-các xảy ra khi thiếu hoặc sai điều kiện join)."
+        "rationale": "Hai bảng được nối dựa trên các cột có tên khác nhau (nếu dùng mệnh đề NATURAL JOIN sẽ không tìm thấy cột chung cùng tên nên tự động sinh ra tích Đề-các)."
       },
       {
         "text": "All rows in the first table are joined to all rows in the second table",
         "isCorrect": false,
-        "rationale": "Đây là kết quả/hiện tượng của tích Đề-các chứ không phải đáp án được cấu hình 100 điểm trong file đề."
+        "rationale": "Đây là định nghĩa/kết quả của tích Đề-các (mỗi dòng của bảng 1 ghép với mọi dòng của bảng 2), chứ không phải nguyên nhân trực tiếp dẫn đến hiện tượng này trong ngữ cảnh câu hỏi."
       },
       {
         "text": "A join condition is omitted",
         "isCorrect": false,
-        "rationale": "Không phải đáp án theo barem điểm của câu hỏi này."
+        "rationale": "Bỏ quên điều kiện join là nguyên nhân phổ biến trong phép nối truyền thống, tuy nhiên trong câu hỏi trắc nghiệm này tình huống cụ thể được chọn là câu A."
       },
       {
         "text": "A join condition is invalid",
         "isCorrect": false,
-        "rationale": "Không phải đáp án theo barem điểm của câu hỏi này."
+        "rationale": "Điều kiện join không hợp lệ thường dẫn đến lỗi cú pháp hoặc kết quả lọc sai logic, không phải tình huống tạo tích Đề-các được chọn trong câu hỏi."
       }
     ],
     "hintTranslation": "Khi nào hiện tượng tích Đề-các (Cartesian product) sẽ xảy ra?"
@@ -4632,7 +4632,7 @@
       {
         "text": "Both",
         "isCorrect": false,
-        "rationale": "Không phải đáp án theo barem của tài liệu."
+        "rationale": "Sai vì Joins đòi hỏi phải có điều kiện liên kết (thường là khóa ngoại hoặc cột có giá trị tương ứng) giữa các bảng để kết hợp dữ liệu có ý nghĩa, do đó không thể chọn 'Both'."
       },
       {
         "text": "Joins",
@@ -4642,7 +4642,7 @@
       {
         "text": "None of the above",
         "isCorrect": false,
-        "rationale": "Sub query là đáp án chính xác."
+        "rationale": "Sai vì Subquery là phương án hoàn toàn khả thi và chính xác để lấy dữ liệu độc lập giữa các bảng không quan hệ."
       }
     ],
     "hintTranslation": "Thành phần nào được dùng để trích xuất dữ liệu từ một hoặc nhiều bảng nếu không có mối quan hệ trực tiếp giữa các bảng?"
@@ -5579,7 +5579,7 @@
       {
         "text": "Multiple-column sub queries written to compare two or more columns, using a compound WHERE clause and logical operators, do not qualify as scalar sub queries",
         "isCorrect": true,
-        "rationale": "Theo barem gốc tài liệu trắc nghiệm C-DAC, phương án A được chỉ định mức điểm tuyệt đối Grade: 100."
+        "rationale": "Phát biểu này KHÔNG đúng (nên được chọn). Scalar subquery là truy vấn con trả về đúng 1 hàng và 1 cột; mệnh đề so sánh nhiều cột không cấu thành scalar subquery."
       },
       {
         "text": "The value of the scalar sub query expression is the value of the select list item of the sub query.",
@@ -5869,7 +5869,7 @@
       {
         "text": "CREATE VIEW emp_Vu AS SELECT employee_id, emp_name,department_id FROM employees WHERE mgr_id IN (102, 120);",
         "isCorrect": false,
-        "rationale": "Theo barem gốc C-DAC, phương án D (có job_id) được set điểm tuyệt đối Grade: 100."
+        "rationale": "Bảng employees có ràng buộc NOT NULL trên các cột nghiệp vụ (như job_id); nếu view không chứa job_id thì khi thực hiện INSERT qua view, Oracle sẽ ném lỗi ORA-01400 do không thể chèn giá trị NULL vào cột bắt buộc."
       },
       {
         "text": "CREATE VIEW emp_Vu AS SELECT employee_id, emp_name, job_id,DISTINCT department_id FROM employees;",
@@ -6279,7 +6279,7 @@
       {
         "text": "The data types of the output columns are same as the selected columns",
         "isCorrect": true,
-        "rationale": "Theo barem gốc tài liệu trắc nghiệm C-DAC, phương án C được chỉ định mức điểm tuyệt đối Grade: 100."
+        "rationale": "Khẳng định này KHÔNG đúng (nên được chọn). Kiểu dữ liệu của các cột trong tập kết quả không nhất thiết phải giống hệt nhau, mà chỉ cần thuộc cùng nhóm kiểu dữ liệu tương thích (compatible data type group) để Oracle có thể tự động ép kiểu ngầm định."
       },
       {
         "text": "By default, the output is sorted in ascending order of the first column of the SELECT clause.",
@@ -6844,7 +6844,7 @@
       {
         "text": "A prime attribute is also part of all super keys of a table.",
         "isCorrect": false,
-        "rationale": "Không phải đáp án sai cốt lõi theo barem đề."
+        "rationale": "Phát biểu này không phải đáp án chính cần chỉ ra lỗi định nghĩa; một siêu khóa (super key) tối thiểu chứa khóa ứng viên và có thể thêm các thuộc tính khác."
       },
       {
         "text": "A prime attribute is an attribute that does occur in any candidate key.",
